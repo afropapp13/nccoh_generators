@@ -70,9 +70,9 @@ void analyzer::Loop() {
 
 		// Post FSI
 
-		TrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueSingleBinPlot",LabelXAxisSingleBin,NBinsSingleBin,ArrayNBinsSingleBin);	
-		TruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0CosThetaPlot",";cos#theta_{#pi^{0}}",NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
-		TruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0MomentumPlot","#pi^{0} momentum [GeV/c]",NBinsPi0Momentum,ArrayNBinsPi0Momentum);
+		TrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueSingleBinPlot", LabelXAxisSingleBin,NBinsSingleBin,ArrayNBinsSingleBin);	
+		TruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0CosThetaPlot", LabelXAxisPi0CosTheta,NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
+		TruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0MomentumPlot", LabelXAxisPi0Momentum,NBinsPi0Momentum,ArrayNBinsPi0Momentum);
 
 		//--------------------------------------------------//
 
@@ -173,8 +173,8 @@ void analyzer::Loop() {
 
 				double ke = E[i] - ProtonMass_GeV;
 
-				// 50 MeV proton kinetic energy threshold
-				if ( ke > 0.05 ) {
+				// proton kinetic energy threshold
+				if ( ke > proton_ke_thres ) {
 
 					ProtonTagging ++;
 
@@ -254,8 +254,8 @@ void analyzer::Loop() {
 
 				double ke = E_vert[i] - ProtonMass_GeV;
 
-				// 50 MeV proton kinetic energy threshold
-				if ( ke > 0.05 ) {
+				// proton kinetic energy threshold
+				if ( ke > proton_ke_thres ) {
 
 					NoFSIProtonTagging ++;
 
@@ -374,6 +374,8 @@ void analyzer::Loop() {
 
 	    double Pi0Momentum = Pi04Vector.Rho();
 	    double Pi0CosTheta = Pi04Vector.CosTheta();
+
+		if (Pi0CosTheta < pi0_costheta_thres) { continue; }
 	  
 		//----------------------------------------//	
 
@@ -416,6 +418,8 @@ void analyzer::Loop() {
 
 	    double Pi0CosTheta = Pi04Vector.CosTheta();
 	    double Pi0Momentum = Pi04Vector.Rho();
+
+		if (Pi0CosTheta < pi0_costheta_thres) { continue; }		
 	
 	    //----------------------------------------//	
 

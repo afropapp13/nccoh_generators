@@ -34,6 +34,11 @@ namespace constants {
 	
 	//----------------------------------------//
 
+	double proton_ke_thres = 0.05; //GeV
+	double pi0_costheta_thres = 0.; //GeV	
+
+	//----------------------------------------//	
+
 	// Labels / Ranges & Label  map
 	// max values
 
@@ -51,9 +56,9 @@ namespace constants {
 	static std::map<TString,TString> VarLabel =
 	{
 
-		{ "SingleBinPlot",  "#frac{d#sigma}{dcos#theta_{#mu}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
-		{ "Pi0CosThetaPlot",  "#frac{d#sigma}{dcos#theta_{vis}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
-		{ "Pi0MomentumPlot",  "#frac{d#sigma}{dp_{miss}} #left[10^{-38} #frac{cm^{2}}{(GeV/c) Ar}#right]" },
+		{ "SingleBinPlot",  "#sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
+		{ "Pi0CosThetaPlot",  "#frac{d#sigma}{dcos#theta_{#pi^{ 0}}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
+		{ "Pi0MomentumPlot",  "#frac{d#sigma}{dp_{#pi^{ 0}}} #left[10^{-38} #frac{cm^{2}}{(GeV/c) Ar}#right]" },
 
 	};
 
@@ -124,23 +129,23 @@ namespace constants {
 	static const int NBinsPi0CosTheta = 18;
 	static const double ArrayNBinsPi0CosTheta[NBinsPi0CosTheta+1] = { -1.,-0.85,-0.7,-0.57,-0.45,-0.32,-0.2,-0.1,0.,0.1,0.2,0.3,0.4,0.5,0.6,0.72,0.84,0.95,1.};
 
-	static const int NBinsPi0Momentum = 13; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.,0.1,0.2,0.3,0.38,0.45,0.5,0.55,0.625,0.7,0.75,0.8,0.87,1.};
+	static const int NBinsPi0Momentum = 15; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.,0.1,0.2,0.3,0.38,0.45,0.5,0.55,0.625,0.7,0.75,0.8,0.87,1.,1.1,1.2};
 
 	//----------------------------------------//
 
 	// Labels for 1D plots
 	
 	static TString LabelXAxisSingleBin = ";single bin"; static TString LabelXAxisTrueSingleBin = ";true single bin";
-	static TString LabelXAxisPi0CosTheta = ";cos#theta_{#pi^{0}}"; static TString LabelXAxisTruePi0CosTheta = ";true cos#theta_{#pi^{0}}";
-	static TString LabelXAxisPi0Momentum = ";#p^{0} momentum [GeV/c]"; static TString LabelXAxisTruePi0Momentum = ";true #pi^{0} momentum [GeV/c]";
+	static TString LabelXAxisPi0CosTheta = ";cos#theta_{#pi^{ 0}}"; static TString LabelXAxisTruePi0CosTheta = ";true cos#theta_{#pi^{ 0}}";
+	static TString LabelXAxisPi0Momentum = ";#pi^{ 0} momentum [GeV/c]"; static TString LabelXAxisTruePi0Momentum = ";true #pi^{0} momentum [GeV/c]";
 	
 	//----------------------------------------//
 
 	// Labels for 2D Plots
 
 	static TString LabelXAxisSingleBin2D = LabelXAxisTrueSingleBin+";reco single bin";
-	static TString LabelXAxisPi0CosTheta2D = LabelXAxisTruePi0CosTheta+";reco cos#theta_{#pi^{0}}";
-	static TString LabelXAxisPi0Momentum2D = LabelXAxisTruePi0Momentum+";reco #pi^{0} momentum [GeV/c]";
+	static TString LabelXAxisPi0CosTheta2D = LabelXAxisTruePi0CosTheta+";reco cos#theta_{#pi^{ 0}}";
+	static TString LabelXAxisPi0Momentum2D = LabelXAxisTruePi0Momentum+";reco #pi^{ 0} momentum [GeV/c]";
 
 	//----------------------------------------//
 	
@@ -154,4 +159,5 @@ namespace constants {
 
 
 }
+
 #endif

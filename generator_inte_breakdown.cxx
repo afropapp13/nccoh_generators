@@ -44,6 +44,7 @@ void generator_inte_breakdown() {
 	std::vector<TString> Process{"","QE","MEC","RES","DIS","COH"};
 
 	Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18");
+	Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_4_0_1.root"); Labels.push_back("NEUT");	
 	
 	const int NSamples = Names.size();
 	const int NColors = Colors.size();
@@ -67,17 +68,13 @@ void generator_inte_breakdown() {
 
 	// 1D
 
-	PlotNames.push_back("TrueSingleBinPlot"); YAxisLabel.push_back("#sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TruePi0CosThetaPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{#pi^{0}}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TruePi0MomentumPlot"); YAxisLabel.push_back("#frac{d#sigma}{dp_{#pi^{0}}} #left[10^{-38} #frac{cm^{2}}{GeV/c Ar}#right]");
+	PlotNames.push_back("TrueSingleBinPlot");
+	PlotNames.push_back("TruePi0CosThetaPlot");
+	PlotNames.push_back("TruePi0MomentumPlot");
 
 	//------------------------------//
 
 	const int NPlots = PlotNames.size();
-	const int NLabels = YAxisLabel.size();
-
-	// sanity check
-	if ( NPlots != NLabels) { cout << "Inconsistent number of plots and labels! Aborting !" << endl; return; }
 
 	//------------------------------//	
 
@@ -97,25 +94,28 @@ void generator_inte_breakdown() {
 
 		for (int iSample = 0; iSample < NSamples; iSample++) {	
 
-		  TString LabelCopy = Labels[iSample];
-		  TString CanvasName = "ThreeDKI_"+LabelCopy.ReplaceAll(" ","_")+"_InteBreakDown_" + PlotNames[iPlot];
-		  TCanvas* PlotCanvas = new TCanvas(CanvasName,CanvasName,205,34,1024,768);
-		  PlotCanvas->cd();
-		  PlotCanvas->SetTopMargin(0.13);
-		  PlotCanvas->SetLeftMargin(0.17);
-		  PlotCanvas->SetRightMargin(0.05);
-		  PlotCanvas->SetBottomMargin(0.16);		
-		  PlotCanvas->Draw();	
+			TString PlotNameDuplicate = PlotNames[iPlot];
+			TString ReducedPlotName = PlotNameDuplicate.ReplaceAll("TrueFineBin","").ReplaceAll("True","") ;			
 
-		  TLegend* leg = new TLegend(0.13,0.88,0.95,0.99);
-		  leg->SetBorderSize(0);
-		  leg->SetNColumns(3);
-		  leg->SetTextSize(TextSize);	
-		  leg->SetTextFont(FontStyle);						
-		  leg->SetMargin(0.2);				
-		  leg->SetFillColor(0);				
+			TString LabelCopy = Labels[iSample];
+		  	TString CanvasName = "ThreeDKI_"+LabelCopy.ReplaceAll(" ","_")+"_InteBreakDown_" + PlotNames[iPlot];
+		  	TCanvas* PlotCanvas = new TCanvas(CanvasName,CanvasName,205,34,1024,768);
+		  	PlotCanvas->cd();
+		  	PlotCanvas->SetTopMargin(0.14);
+		  	PlotCanvas->SetLeftMargin(0.19);
+		  	PlotCanvas->SetRightMargin(0.03);
+		  	PlotCanvas->SetBottomMargin(0.16);		
+		  	PlotCanvas->Draw();	
 
-		  // Loop over the interaction processes
+			TLegend* leg = new TLegend(0.15,0.87,0.99,0.99);
+			leg->SetBorderSize(0);
+			leg->SetNColumns(3);
+			leg->SetTextSize(TextSize);	
+			leg->SetTextFont(FontStyle);						
+			leg->SetMargin(0.1);				
+			leg->SetFillColor(0);				
+
+			// Loop over the interaction processes
 
 		  std::vector<TH1D*> Histos; Histos.resize(NProcesses);
 
@@ -138,9 +138,9 @@ void generator_inte_breakdown() {
 			Histos[iprocess]->GetYaxis()->SetLabelFont(FontStyle);
 			Histos[iprocess]->GetYaxis()->SetNdivisions(6);
 			Histos[iprocess]->GetYaxis()->SetLabelSize(TextSize);
-			Histos[iprocess]->GetYaxis()->SetTitle(YAxisLabel.at(iPlot));
+			Histos[iprocess]->GetYaxis()->SetTitle( VarLabel[ReducedPlotName] );
 			Histos[iprocess]->GetYaxis()->SetTitleSize(TextSize);
-			Histos[iprocess]->GetYaxis()->SetTitleOffset(1.25);
+			Histos[iprocess]->GetYaxis()->SetTitleOffset(1.2);
 			//Histos[iprocess]->GetYaxis()->SetTickSize(0);
 			Histos[iprocess]->GetYaxis()->CenterTitle();	
 			Histos[iprocess]->GetYaxis()->SetRangeUser(0.,1.15*Histos[0]->GetMaximum());
@@ -148,7 +148,7 @@ void generator_inte_breakdown() {
 			Histos[iprocess]->Draw("hist same");
 			Histos[0]->Draw("hist same");	
 
-			double frac = Histos[iprocess]->Integral("width")/Histos[0]->Integral("width") * 100.;
+			double frac = Histos[iprocess]->Integral()/Histos[0]->Integral() * 100.;
 			TString LegLabel = Process[iprocess] + " (" + to_string_with_precision(frac,1) + "%)";
 			if (iprocess == 0) { LegLabel = "Total (" + to_string_with_precision(frac,1) + "%)"; }
 			TLegendEntry* legColor = leg->AddEntry(Histos[iprocess],LegLabel,"l");
@@ -164,9 +164,7 @@ void generator_inte_breakdown() {
 		  TLatex *textSlice = new TLatex();
 		  textSlice->SetTextFont(FontStyle);
 		  textSlice->SetTextSize(TextSize);
-		  TString PlotNameDuplicate = PlotNames[iPlot];
-		  TString ReducedPlotName = PlotNameDuplicate.ReplaceAll("TrueFineBin","") ;
-		  textSlice->DrawLatexNDC(0.2, 0.81, Labels[iSample] + "      " + LatexLabel[ReducedPlotName].ReplaceAll("All events",""));
+		  textSlice->DrawLatexNDC(0.23, 0.81, Labels[iSample] + "      " + LatexLabel[ReducedPlotName].ReplaceAll("All events",""));
 
 		  gPad->RedrawAxis();
 
