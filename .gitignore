@@ -1,0 +1,5 @@
+output_files/*
+
+*.pcm
+*.d
+*.so
