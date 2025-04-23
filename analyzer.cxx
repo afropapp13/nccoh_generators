@@ -51,6 +51,7 @@ void analyzer::Loop() {
 	TH1D* TrueSingleBinPlot[NInte];	
 	TH1D* TruePi0CosThetaPlot[NInte];
 	TH1D* TruePi0MomentumPlot[NInte];
+	TH1D* TruePi0InvMassPlot[NInte];
 
 	//----------------------------------------//
 
@@ -59,6 +60,7 @@ void analyzer::Loop() {
 	TH1D* NoFSITrueSingleBinPlot[NInte];
 	TH1D* NoFSITruePi0CosThetaPlot[NInte];
 	TH1D* NoFSITruePi0MomentumPlot[NInte];
+	TH1D* NoFSITruePi0InvMassPlot[NInte];
 
 	//----------------------------------------//
 
@@ -73,6 +75,7 @@ void analyzer::Loop() {
 		TrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueSingleBinPlot", LabelXAxisSingleBin,NBinsSingleBin,ArrayNBinsSingleBin);	
 		TruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0CosThetaPlot", LabelXAxisPi0CosTheta,NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
 		TruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0MomentumPlot", LabelXAxisPi0Momentum,NBinsPi0Momentum,ArrayNBinsPi0Momentum);
+		TruePi0InvMassPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0InvMassPlot", LabelXAxisPi0InvMass,NBinsPi0InvMass,ArrayNBinsPi0InvMass);
 
 		//--------------------------------------------------//
 
@@ -81,6 +84,7 @@ void analyzer::Loop() {
 		NoFSITrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITrueSingleBinPlot",";cos#theta_{#mu}",NBinsSingleBin,ArrayNBinsSingleBin);
 		NoFSITruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0CosThetaPlot",";cos#theta_{p}",NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
 		NoFSITruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0MomentumPlot",";#pi^{0} momentum [GeV/c]",NBinsPi0Momentum,ArrayNBinsPi0Momentum);
+		NoFSITruePi0InvMassPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0InvMassPlot", LabelXAxisPi0InvMass,NBinsPi0InvMass,ArrayNBinsPi0InvMass);
 
 		//--------------------------------------------------//
 
@@ -366,6 +370,7 @@ void analyzer::Loop() {
 	    // Kinematics of eutral pion in the final state
 
 	    TLorentzVector Pi04Vector(px[Pi0ID[0]], py[Pi0ID[0]], pz[Pi0ID[0]], E[Pi0ID[0]]);
+	    double Pi0InvMass = Pi04Vector.M();
 
 	    //----------------------------------------//
 
@@ -391,6 +396,7 @@ void analyzer::Loop() {
 	    TrueSingleBinPlot[0]->Fill(0.5,weight);	
 	    TruePi0CosThetaPlot[0]->Fill(Pi0CosTheta,weight);
 	    TruePi0MomentumPlot[0]->Fill(Pi0Momentum,weight);	
+	    TruePi0InvMassPlot[0]->Fill(Pi0InvMass,weight);	
 
 	    //----------------------------------------//		
 
@@ -399,6 +405,7 @@ void analyzer::Loop() {
 	    TrueSingleBinPlot[genie_mode]->Fill(0.5,weight);	
 	    TruePi0CosThetaPlot[genie_mode]->Fill(Pi0CosTheta,weight);
 	    TruePi0MomentumPlot[genie_mode]->Fill(Pi0Momentum,weight);
+	    TruePi0InvMassPlot[genie_mode]->Fill(Pi0InvMass,weight);
 
 	  } // End of the post-FSI selection
 
@@ -413,6 +420,7 @@ void analyzer::Loop() {
 	    // Kinematics of neutral pion in the final state pre FSI
 
 	    TLorentzVector Pi04Vector(px_vert[NoFSIPi0ID[0]], py_vert[NoFSIPi0ID[0]], pz_vert[NoFSIPi0ID[0]], E_vert[NoFSIPi0ID[0]]);
+	    double Pi0InvMass = Pi04Vector.M();
 
 	    //----------------------------------------//
 
@@ -432,9 +440,17 @@ void analyzer::Loop() {
 
 	    // filling in the histo regardless of interaction mode
 
-		NoFSITrueSingleBinPlot[0]->Fill(0.5,weight);
+	    NoFSITrueSingleBinPlot[0]->Fill(0.5,weight);
 	    NoFSITruePi0CosThetaPlot[0]->Fill(Pi0CosTheta,weight);
 	    NoFSITruePi0MomentumPlot[0]->Fill(Pi0Momentum,weight);							
+	    NoFSITruePi0InvMassPlot[0]->Fill(Pi0InvMass,weight);							
+
+	    NoFSITrueSingleBinPlot[genie_mode]->Fill(0.5,weight);
+	    NoFSITruePi0CosThetaPlot[genie_mode]->Fill(Pi0CosTheta,weight);
+	    NoFSITruePi0MomentumPlot[genie_mode]->Fill(Pi0Momentum,weight);							
+	    NoFSITruePi0InvMassPlot[genie_mode]->Fill(Pi0InvMass,weight);							
+
+
 
 	  } // End of the post-FSI selection
 

@@ -71,6 +71,7 @@ void generator_inte_breakdown() {
 	PlotNames.push_back("TrueSingleBinPlot");
 	PlotNames.push_back("TruePi0CosThetaPlot");
 	PlotNames.push_back("TruePi0MomentumPlot");
+	PlotNames.push_back("TruePi0InvMassPlot");
 
 	//------------------------------//
 
