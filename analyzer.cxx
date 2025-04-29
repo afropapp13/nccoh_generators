@@ -160,11 +160,13 @@ void analyzer::Loop() {
 		int ProtonTagging = 0, ChargedPionTagging = 0, Pi0Tagging = 0;
 		int heavy_meason_tagging = 0, SigmaTagging = 0, LambdaTagging = 0;
 		int PhotonTagging = 0, LeptonTagging = 0 , cluster_tagging = 0;
+		int neutron_tagging = 0;
 		vector <int> Pi0ID; Pi0ID.clear();		
 
 		int NoFSIProtonTagging = 0, NoFSIChargedPionTagging = 0, NoFSIPi0Tagging = 0;
 		int NoFSIheavy_meason_tagging = 0, NoFSISigmaTagging = 0, NoFSILambdaTagging = 0;
 		int NoFSIPhotonTagging = 0, NoFSILeptonTagging = 0, nofsi_cluster_tagging = 0;
+		int nofsi_neutron_tagging = 0;		
 		vector <int> NoFSIPi0ID; NoFSIPi0ID.clear();			
 
 		//----------------------------------------//	
@@ -237,12 +239,24 @@ void analyzer::Loop() {
 
 			}
 
-			else if ( fabs(pdg[i]) == NeutronPdg || fabs(pdg[i]) == NuMuPdg 
-			       || fabs(pdg[i]) == nue_pdg) {
+			else if ( fabs(pdg[i]) == NuMuPdg || fabs(pdg[i]) == nue_pdg) {
 
-				// Ignore neutrons, numus, nues
+				// Ignore numus, nues
 
 			}
+
+			else if ( fabs(pdg[i]) == NeutronPdg) {
+
+				double ke = E[i] - NeutronMass_GeV;
+
+				// neutron kinetic energy threshold
+				if ( ke > neutron_ke_thres ) {
+
+					neutron_tagging ++;
+
+				}
+
+			}			
 
 			else { cout << "post fsi pdg " << pdg[i] << endl; }
 
@@ -318,12 +332,25 @@ void analyzer::Loop() {
 
 			}
 
-			else if ( fabs(pdg_vert[i]) == NeutronPdg || fabs(pdg_vert[i]) == NuMuPdg 
+			else if ( fabs(pdg_vert[i]) == NuMuPdg 
 			       || fabs(pdg_vert[i]) == nue_pdg) {
 
 				// Ignore neutrons, numus, nues
 
 			}
+
+			else if ( fabs(pdg_vert[i]) == NeutronPdg) {
+
+				double ke = E_vert[i] - NeutronMass_GeV;
+
+				// neutron kinetic energy threshold
+				if ( ke > neutron_ke_thres ) {
+
+					nofsi_neutron_tagging ++;
+
+				}
+
+			}	
 
 			else { cout << "pre fsi pdg_vert " << pdg_vert[i] << endl; }
 
@@ -362,7 +389,7 @@ void analyzer::Loop() {
 	  // If the signal definition post-FSI  is satisfied
 	  if ( Pi0Tagging == 1 && ProtonTagging == 0 && ChargedPionTagging == 0 && 
 		   heavy_meason_tagging == 0 && LambdaTagging == 0 && SigmaTagging == 0 &&
-		   PhotonTagging == 0 && LeptonTagging == 0 && cluster_tagging == 0
+		   PhotonTagging == 0 && LeptonTagging == 0 && cluster_tagging == 0 && neutron_tagging == 0
 		) { 
 
 	    CounterEventsPassedSelection++;
@@ -414,7 +441,7 @@ void analyzer::Loop() {
 	  // If the signal definition pre-FSI is satisfied
 	  if ( NoFSIPi0Tagging == 1 && NoFSIProtonTagging == 0 && NoFSIChargedPionTagging == 0 && 
 		   NoFSIheavy_meason_tagging == 0 && NoFSILambdaTagging == 0 && NoFSISigmaTagging == 0 &&
-		   NoFSIPhotonTagging == 0 && NoFSILeptonTagging == 0 && nofsi_cluster_tagging == 0
+		   NoFSIPhotonTagging == 0 && NoFSILeptonTagging == 0 && nofsi_cluster_tagging == 0 && nofsi_neutron_tagging == 0
 	    ) { 
 
 	    // Kinematics of neutral pion in the final state pre FSI
@@ -473,6 +500,9 @@ void analyzer::Loop() {
 
 		divide_bin_width(NoFSITruePi0CosThetaPlot[inte]);
 		divide_bin_width(NoFSITruePi0MomentumPlot[inte]);
+
+		divide_bin_width(TruePi0CosThetaPlot[inte]);
+		divide_bin_width(TruePi0MomentumPlot[inte]);		
 
 	} // End of the loop over the interaction processes		
 

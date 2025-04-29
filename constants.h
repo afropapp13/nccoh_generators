@@ -37,11 +37,14 @@ namespace constants {
 	const int FontStyle = 132;
 	const double TextSize = 0.07;
 	const int NCont = 999; 
+
+	double CosmicPID = -99.;
 	
 	//----------------------------------------//
 
-	double proton_ke_thres = 0.05; //GeV
-	double pi0_costheta_thres = 0.; //GeV	
+	double neutron_ke_thres = 0.02; //GeV
+	double proton_ke_thres = 0.02; //GeV
+	double pi0_costheta_thres = 0.5; //GeV	
 
 	// ------------------------------------ //
 

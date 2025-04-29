@@ -149,7 +149,7 @@ void generator_inte_breakdown() {
 			Histos[iprocess]->Draw("hist same");
 			Histos[0]->Draw("hist same");	
 
-			double frac = Histos[iprocess]->Integral()/Histos[0]->Integral() * 100.;
+			double frac = Histos[iprocess]->Integral("width")/Histos[0]->Integral("width") * 100.;
 			TString LegLabel = Process[iprocess] + " (" + to_string_with_precision(frac,1) + "%)";
 			if (iprocess == 0) { LegLabel = "Total (" + to_string_with_precision(frac,1) + "%)"; }
 			TLegendEntry* legColor = leg->AddEntry(Histos[iprocess],LegLabel,"l");
