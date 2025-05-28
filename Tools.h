@@ -56,6 +56,8 @@ class Tools {
 		TH2D* Get2DHistoBins(TH2D* h,int LowBin,int HighBin,double ScaleFactor,std::vector<double> Binning, bool Scale);	
 		std::vector< std::vector<double> > CollapseMatrixIntoArray(std::vector< std::vector< std::vector<double> > > Matrix);			
 
+		double CosAlpha(TVector3 blip, TVector3 vertex, TVector3 shower);
+
 		double MuonMass; // MeV
 		double ProtonMass; // MeV
 		int MuonPdg;

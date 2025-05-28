@@ -55,15 +55,6 @@ void analyzer::Loop() {
 
 	//----------------------------------------//
 
-	// Pre FSI
-
-	TH1D* NoFSITrueSingleBinPlot[NInte];
-	TH1D* NoFSITruePi0CosThetaPlot[NInte];
-	TH1D* NoFSITruePi0MomentumPlot[NInte];
-	TH1D* NoFSITruePi0InvMassPlot[NInte];
-
-	//----------------------------------------//
-
 	// Loop over the interaction processes
 
 	for (int inte = 0; inte < NInte; inte++) {
@@ -76,15 +67,6 @@ void analyzer::Loop() {
 		TruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0CosThetaPlot", LabelXAxisPi0CosTheta,NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
 		TruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0MomentumPlot", LabelXAxisPi0Momentum,NBinsPi0Momentum,ArrayNBinsPi0Momentum);
 		TruePi0InvMassPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0InvMassPlot", LabelXAxisPi0InvMass,NBinsPi0InvMass,ArrayNBinsPi0InvMass);
-
-		//--------------------------------------------------//
-
-		// Pre FSI
-
-		NoFSITrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITrueSingleBinPlot",";cos#theta_{#mu}",NBinsSingleBin,ArrayNBinsSingleBin);
-		NoFSITruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0CosThetaPlot",";cos#theta_{p}",NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
-		NoFSITruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0MomentumPlot",";#pi^{0} momentum [GeV/c]",NBinsPi0Momentum,ArrayNBinsPi0Momentum);
-		NoFSITruePi0InvMassPlot[inte] = new TH1D(InteractionLabels[inte]+"NoFSITruePi0InvMassPlot", LabelXAxisPi0InvMass,NBinsPi0InvMass,ArrayNBinsPi0InvMass);
 
 		//--------------------------------------------------//
 
@@ -161,13 +143,7 @@ void analyzer::Loop() {
 		int heavy_meason_tagging = 0, SigmaTagging = 0, LambdaTagging = 0;
 		int PhotonTagging = 0, LeptonTagging = 0 , cluster_tagging = 0;
 		int neutron_tagging = 0;
-		vector <int> Pi0ID; Pi0ID.clear();		
-
-		int NoFSIProtonTagging = 0, NoFSIChargedPionTagging = 0, NoFSIPi0Tagging = 0;
-		int NoFSIheavy_meason_tagging = 0, NoFSISigmaTagging = 0, NoFSILambdaTagging = 0;
-		int NoFSIPhotonTagging = 0, NoFSILeptonTagging = 0, nofsi_cluster_tagging = 0;
-		int nofsi_neutron_tagging = 0;		
-		vector <int> NoFSIPi0ID; NoFSIPi0ID.clear();			
+		vector <int> Pi0ID; Pi0ID.clear();				
 
 		//----------------------------------------//	
 
@@ -190,7 +166,7 @@ void analyzer::Loop() {
 
 			else if ( fabs(pdg[i]) == AbsChargedPionPdg )  {
 
-			ChargedPionTagging ++;
+				ChargedPionTagging ++;
 
 			}
 
@@ -202,7 +178,10 @@ void analyzer::Loop() {
 			}
 
 			else if ( fabs(pdg[i]) == KaonPdg || fabs(pdg[i]) == NeutralKaonPdg 
-			       || fabs(pdg[i]) == rho_pdg || fabs(pdg[i]) == charged_rho_pdg || fabs(pdg[i]) == eta_pdg)  {
+				   || fabs(pdg[i]) == NeutralKaonLongPdg || fabs(pdg[i]) == NeutralKaonShortPdg 
+			       || fabs(pdg[i]) == rho_pdg || fabs(pdg[i]) == charged_rho_pdg
+				   || fabs(pdg[i]) == d0_pdg || fabs(pdg[i]) == dp_pdg || fabs(pdg[i]) == dm_pdg 
+				   || fabs(pdg[i]) == eta_pdg || fabs(pdg[i]) == omega_pdg)  {
 
 				heavy_meason_tagging ++;
 	
@@ -262,100 +241,6 @@ void analyzer::Loop() {
 
 	  	} // End of the loop over the final state particles / post FSI
 
-		//----------------------------------------//	
-
-		// Loop over final state particles / pre FSI
-
-		for (int i = 0; i < nvertp; i++) {
-			
-			if (pdg_vert[i] == ProtonPdg ) {
-
-				double ke = E_vert[i] - ProtonMass_GeV;
-
-				// proton kinetic energy threshold
-				if ( ke > proton_ke_thres ) {
-
-					NoFSIProtonTagging ++;
-
-				}
-
-			}
-
-			else if ( fabs(pdg_vert[i]) == AbsChargedPionPdg )  {
-
-				NoFSIChargedPionTagging ++;
-
-			}
-
-			else if ( fabs(pdg_vert[i]) == NeutralPionPdg)  {
-
-				NoFSIPi0Tagging ++;
-				NoFSIPi0ID.push_back(i);
-
-			}
-
-			else if ( fabs(pdg_vert[i]) == KaonPdg || fabs(pdg_vert[i]) == NeutralKaonPdg 
-			       || fabs(pdg_vert[i]) == rho_pdg || fabs(pdg_vert[i]) == charged_rho_pdg || fabs(pdg_vert[i]) == eta_pdg)  {
-
-				NoFSIheavy_meason_tagging ++;
-		
-			}	
-				
-			else if ( fabs(pdg_vert[i]) == SigmaPlusPdg || fabs(pdg_vert[i]) == SigmaMinusPdg || fabs(pdg_vert[i]) == NeutralSigmaPdg)  {
-
-				NoFSISigmaTagging ++;
-		
-			}		
-				
-			else if ( fabs(pdg_vert[i]) == LambdaPdg)  {
-
-				NoFSILambdaTagging ++;
-		
-			}
-				
-			else if ( fabs(pdg_vert[i]) == PhotonPdg)  {
-
-				NoFSIPhotonTagging ++;
-		
-			}
-				
-			else if ( fabs(pdg_vert[i]) == ElectronPdg || fabs(pdg_vert[i]) == MuonPdg)  {
-
-				NoFSILeptonTagging ++;
-		
-			}			
-
-			else if ( fabs(pdg_vert[i]) == hydrogen_cluster_pdg || fabs(pdg_vert[i]) == nucleon_pair
-			       || fabs(pdg_vert[i]) == ArgonPdg || fabs(pdg_vert[i]) == neutron_pair || fabs(pdg_vert[i]) == proton_pair) {
-
-				// Ignore neutrons, numus, nues
-
-			}
-
-			else if ( fabs(pdg_vert[i]) == NuMuPdg 
-			       || fabs(pdg_vert[i]) == nue_pdg) {
-
-				// Ignore neutrons, numus, nues
-
-			}
-
-			else if ( fabs(pdg_vert[i]) == NeutronPdg) {
-
-				double ke = E_vert[i] - NeutronMass_GeV;
-
-				// neutron kinetic energy threshold
-				if ( ke > neutron_ke_thres ) {
-
-					nofsi_neutron_tagging ++;
-
-				}
-
-			}	
-
-			else { cout << "pre fsi pdg_vert " << pdg_vert[i] << endl; }
-
-		} // End of the loop over the final state particles / pre FSI
-
 	  //----------------------------------------//	
 
 	  // Classify the events based on the interaction type
@@ -375,6 +260,7 @@ void analyzer::Loop() {
 	    else if (TMath::Abs(Mode) == 2) { genie_mode = 2; } // MEC
 	    else if ( TMath::Abs(Mode) == 31 || TMath::Abs(Mode) == 32 
 			   || TMath::Abs(Mode) == 33 || TMath::Abs(Mode) == 34 
+			   || TMath::Abs(Mode) == 38 || TMath::Abs(Mode) == 39 
 			   || TMath::Abs(Mode) == 42 || TMath::Abs(Mode) == 43
 			   || TMath::Abs(Mode) == 44 || TMath::Abs(Mode) == 45
 		   ) { genie_mode = 3; } // RES
@@ -437,51 +323,6 @@ void analyzer::Loop() {
 	  } // End of the post-FSI selection
 
 	  //----------------------------------------//
-
-	  // If the signal definition pre-FSI is satisfied
-	  if ( NoFSIPi0Tagging == 1 && NoFSIProtonTagging == 0 && NoFSIChargedPionTagging == 0 && 
-		   NoFSIheavy_meason_tagging == 0 && NoFSILambdaTagging == 0 && NoFSISigmaTagging == 0 &&
-		   NoFSIPhotonTagging == 0 && NoFSILeptonTagging == 0 && nofsi_cluster_tagging == 0 && nofsi_neutron_tagging == 0
-	    ) { 
-
-	    // Kinematics of neutral pion in the final state pre FSI
-
-	    TLorentzVector Pi04Vector(px_vert[NoFSIPi0ID[0]], py_vert[NoFSIPi0ID[0]], pz_vert[NoFSIPi0ID[0]], E_vert[NoFSIPi0ID[0]]);
-	    double Pi0InvMass = Pi04Vector.M();
-
-	    //----------------------------------------//
-
-	    double Pi0CosTheta = Pi04Vector.CosTheta();
-	    double Pi0Momentum = Pi04Vector.Rho();
-
-		if (Pi0CosTheta < pi0_costheta_thres) { continue; }		
-	
-	    //----------------------------------------//	
-
-	    // Underflow / overflow
-
-		if (Pi0Momentum < ArrayNBinsPi0Momentum[0]) { Pi0Momentum = (ArrayNBinsPi0Momentum[0] + ArrayNBinsPi0Momentum[1])/2.; }
-        if (Pi0Momentum > ArrayNBinsPi0Momentum[NBinsPi0Momentum]) { Pi0Momentum = (ArrayNBinsPi0Momentum[NBinsPi0Momentum] + ArrayNBinsPi0Momentum[NBinsPi0Momentum-1])/2.; }
-
-	    //----------------------------------------//	
-
-	    // filling in the histo regardless of interaction mode
-
-	    NoFSITrueSingleBinPlot[0]->Fill(0.5,weight);
-	    NoFSITruePi0CosThetaPlot[0]->Fill(Pi0CosTheta,weight);
-	    NoFSITruePi0MomentumPlot[0]->Fill(Pi0Momentum,weight);							
-	    NoFSITruePi0InvMassPlot[0]->Fill(Pi0InvMass,weight);							
-
-	    NoFSITrueSingleBinPlot[genie_mode]->Fill(0.5,weight);
-	    NoFSITruePi0CosThetaPlot[genie_mode]->Fill(Pi0CosTheta,weight);
-	    NoFSITruePi0MomentumPlot[genie_mode]->Fill(Pi0Momentum,weight);							
-	    NoFSITruePi0InvMassPlot[genie_mode]->Fill(Pi0InvMass,weight);							
-
-
-
-	  } // End of the post-FSI selection
-
-	  //----------------------------------------//
 	
 	} // End of the loop over the events
 
@@ -497,9 +338,6 @@ void analyzer::Loop() {
 	// Loop over the interaction processes
 
 	for (int inte = 0; inte < NInte; inte++) {
-
-		divide_bin_width(NoFSITruePi0CosThetaPlot[inte]);
-		divide_bin_width(NoFSITruePi0MomentumPlot[inte]);
 
 		divide_bin_width(TruePi0CosThetaPlot[inte]);
 		divide_bin_width(TruePi0MomentumPlot[inte]);		
@@ -520,4 +358,4 @@ void analyzer::Loop() {
 
 	//----------------------------------------//		
 
-} // End of the program
+} // end of the program

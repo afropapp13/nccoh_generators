@@ -41,84 +41,12 @@ void generator_overlay(TString Tag = "") {
 
 	if (Tag == "") {
 
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  //Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_0_AR23_20i_00_000.root"); Labels.push_back("AR23"); Colors.push_back(kBlue); LineStyle.push_back(Gv2LineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_NEUT_5_4_0_1.root"); Labels.push_back("NEUT"); Colors.push_back(kMagenta); LineStyle.push_back(NEUTLineStyle); // kMagenta - 9
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_NuWro_21_09_02.root"); Labels.push_back("NuWro"); Colors.push_back(NEUTColor); LineStyle.push_back(NuWroLineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GiBUU_2023.root"); Labels.push_back("GiBUU"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
+	  //Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_4_0_AR23_20i_00_000.root"); Labels.push_back("AR23"); Colors.push_back(kBlue); LineStyle.push_back(Gv2LineStyle);
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_4_0_1.root"); Labels.push_back("NEUT"); Colors.push_back(kMagenta); LineStyle.push_back(kSolid); // kMagenta - 9
+	  //Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_21_09_02.root"); Labels.push_back("NuWro"); Colors.push_back(NEUTColor); LineStyle.push_back(NuWroLineStyle);
+	  //Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2023.root"); Labels.push_back("GiBUU"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
 
-	}
-
-	if (Tag == "neut") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_NEUT_5_4_0_1.root"); Labels.push_back("NEUT v5.4.0.1"); Colors.push_back(kGreen+1); LineStyle.push_back(kSolid); // kMagenta - 9
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_NEUT_5_8_0.root"); Labels.push_back("NEUT v5.8.0"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid); // kMagenta - 9
-
-	}
-
-
-	if (Tag == "Tune") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"WeightsFlatTreeAnalyzerOutput_GENIE_v3_4_0_G18_10a_02_11a.root"); Labels.push_back("G18T hA"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"WeightsFlatTreeAnalyzerOutput_GENIE_v3_4_2_G18_10a_02_11a.root"); Labels.push_back("G18T hA v3.4.2"); Colors.push_back(kGreen+2); LineStyle.push_back(kSolid);
-
-	}
-
-	if (Tag == "flux") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("cv"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_4aflux.root"); Labels.push_back("4a"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
-
-	}
-
-	if (Tag == "NuclearModel") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("G18 LFG");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_RFG.root"); Labels.push_back("G18 RFG"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_EffSF.root"); Labels.push_back("G18 SF");Colors.push_back(kRed); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_2_GTEST23_4a_00_000.root"); Labels.push_back("Noah SF");Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
-
-	}
-	
-	if (Tag == "FSI") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("G18 hA");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_hN2018.root"); Labels.push_back("G18 hN"); Colors.push_back(kBlue); LineStyle.push_back(Gv2LineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_2_0_G4.root"); Labels.push_back("G18 G4"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
-
-	}
-	
-	if (Tag == "FSIAR23") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_2_AR23_20i_00_000.root"); Labels.push_back("AR23 hA");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_2_AR23_20j_00_000.root"); Labels.push_back("AR23 hN"); Colors.push_back(kBlue); LineStyle.push_back(Gv2LineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_2_AR23_20l_00_000.root"); Labels.push_back("AR23 G4"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_2_G24_20i_06_22c.root"); Labels.push_back("G24 hA"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
-
-	}
-	
-	if (Tag == "NuclearEffects") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("G18");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_NoRPA.root"); Labels.push_back("NoRPA"); Colors.push_back(kMagenta-9); LineStyle.push_back(NEUTLineStyle);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_NoCoulomb.root"); Labels.push_back("NoC"); Colors.push_back(NEUTColor); LineStyle.push_back(NuWroLineStyle);
-
-	}
-	
-	if (Tag == "Honda") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("BNB");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_0_G18_10a_02_11a_Honda.root"); Labels.push_back("Honda"); Colors.push_back(NEUTColor); LineStyle.push_back(kSolid);
-	
-	}
-	
-	if (Tag == "HondaRw") {
-
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6.root"); Labels.push_back("BNB");Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_4_0_G18_10a_02_11a_Honda.root"); Labels.push_back("Honda"); Colors.push_back(NEUTColor); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"FlatTreeAnalyzerOutput_GENIE_v3_0_6_BNBToHonda.root"); Labels.push_back("Rw BNB-To-Honda");Colors.push_back(kOrange+7); LineStyle.push_back(kDashed);
-	
 	}
 	
 	const int NSamples = Names.size();
@@ -142,14 +70,9 @@ void generator_overlay(TString Tag = "") {
 
 	// 1D
 
-	PlotNames.push_back("TrueFineBinNeutronMultiplicityPlot"); YAxisLabel.push_back("#sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]");	
-	PlotNames.push_back("TrueFineBinMuonCosThetaPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{#mu}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TrueFineBinProtonCosThetaPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{p}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TrueFineBinThetaVisPlot"); YAxisLabel.push_back("#frac{d#sigma}{d#theta_{vis}}  #left[10^{-38} #frac{cm^{2}}{deg Ar}#right]");
-	PlotNames.push_back("TrueFineBinCosThetaVisPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{vis}}  #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TrueFineBinEvPlot"); YAxisLabel.push_back("#frac{d#sigma}{dE_{#nu}}  #left[10^{-38} #frac{cm^{2}}{GeV Ar}#right]");
-	PlotNames.push_back("TrueFineBinECalPlot"); YAxisLabel.push_back("#frac{d#sigma}{dE^{Cal}}  #left[10^{-38} #frac{cm^{2}}{GeV Ar}#right]");
-	PlotNames.push_back("TrueFineBinPMissPlot"); YAxisLabel.push_back("#frac{d#sigma}{dp_{miss}}  #left[10^{-38} #frac{cm^{2}}{GeV/c Ar}#right]");
+	PlotNames.push_back("TruePi0CosThetaPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{#pi^{0}}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
+	PlotNames.push_back("TruePi0MomentumPlot"); YAxisLabel.push_back("#frac{d#sigma}{dp_{#pi^{0}}}  #left[10^{-38} #frac{cm^{2}}{(GeV/c) Ar}#right]");
+	PlotNames.push_back("TrueSingleBinPlot"); YAxisLabel.push_back("sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
 
 	//------------------------------//
 

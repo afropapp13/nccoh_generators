@@ -575,4 +575,19 @@ void Tools::Reweight2D(TH2D* h, double SF = 1.) {
 
 //----------------------------------------//
 
+double Tools::CosAlpha(TVector3 blip, TVector3 vertex, TVector3 shower){
+
+	TVector3 c_v = (blip - vertex);
+	TVector3 unit_c_v = c_v.Unit();
+
+	TVector3 unit_shower = shower.Unit();
+
+	double cos_alpha = unit_c_v.Dot(unit_shower);
+
+	return cos_alpha;
+
+}
+
+//----------------------------------------//
+
 #endif
