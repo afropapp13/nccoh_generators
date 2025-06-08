@@ -27,6 +27,7 @@ namespace constants {
 	TString preselection_file_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/";
 	TString event_selection_file_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/output_files/";
 	TString plot_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/myPlots/"; 
+	TString efficiency_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/efficiencies/";
 	
 	//----------------------------------------//
 
@@ -55,7 +56,8 @@ namespace constants {
 
 	double neutron_ke_thres = 0.02; //GeV
 	double proton_ke_thres = 0.02; //GeV
-	double pi0_costheta_thres = 0.8; //GeV	
+	double pi0_costheta_thres = 0.85; //GeV	
+	double gamma_costheta_thres = 0.6; //GeV	
 	double TRACK_SCORE_CUT = 0.5;
 
 	// ------------------------------------ //
@@ -249,9 +251,7 @@ namespace constants {
 	{
 
 		{ "SingleBinPlot",  std::make_pair(0, 16.9) },
-		{ "Pi0CosThetaPlot",  std::make_pair(0, 109.) },		
-		{ "Pi0MomentumPlot",  std::make_pair(0, 34.) },		
-		{ "Pi0InvMassPlot",  std::make_pair(0, 34.) },		
+		{ "Pi0MomentumPlot",  std::make_pair(0, 34.) },			
 
 	};	
 	
@@ -261,9 +261,7 @@ namespace constants {
 	{
 
 		{ "SingleBinPlot",  "#sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
-		{ "Pi0CosThetaPlot",  "#frac{d#sigma}{dcos#theta_{#pi^{ 0}}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]" },
 		{ "Pi0MomentumPlot",  "#frac{d#sigma}{dp_{#pi^{ 0}}} #left[10^{-38} #frac{cm^{2}}{(GeV/c) Ar}#right]" },
-		{ "Pi0InvMassPlot",  "#frac{d#sigma}{dp_{#pi^{ 0}}} #left[10^{-38} #frac{cm^{2}}{(GeV/c^{2}) Ar}#right]" },
 
 	};
 
@@ -271,9 +269,7 @@ namespace constants {
 	{
 
 		{ "MuonCosThetaSingleBinPlot",  "all events" },
-		{ "Pi0CosThetaPlot", "all events" },	
 		{ "Pi0MomentumPlot", "all events" },	
-		{ "Pi0InvMassPlot", "all events" },	
 	
 	};	
 	
@@ -283,9 +279,7 @@ namespace constants {
 	{
 
 		{ "SingleBinPlot", "SingleBinPlot" },
-		{ "Pi0CosThetaPlot", "Pi0CosThetaPlot" },
 		{ "Pi0MomentumPlot", "Pi0MomentumPlot" },
-		{ "Pi0InvMassPlot", "Pi0InvMassPlot" },
 	
 	};
 					
@@ -315,9 +309,7 @@ namespace constants {
 
 	vector<TString> PlotNames{
 				 "SingleBinPlot"
-				 ,"Pi0CosThetaPlot"
 				 ,"Pi0MomentumPlot"
-				 ,"Pi0InvMassPlot"
 			 
 	};
 	
@@ -325,9 +317,7 @@ namespace constants {
 	
 	vector<TString> OneDimXSec = {
 				 "SingleBinPlot"
-				 ,"Pi0CosThetaPlot"
 				 ,"Pi0MomentumPlot"
-				 ,"Pi0InvMassPlot"
 				 				 
 	};	
 	
@@ -340,7 +330,7 @@ namespace constants {
 	static const int NBinsPi0CosTheta = 18;
 	static const double ArrayNBinsPi0CosTheta[NBinsPi0CosTheta+1] = { -1.,-0.85,-0.7,-0.57,-0.45,-0.32,-0.2,-0.1,0.,0.1,0.2,0.3,0.4,0.5,0.6,0.72,0.84,0.95,1.};
 
-	static const int NBinsPi0Momentum = 21; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.,0.1,0.2,0.3,0.38,0.45,0.5,0.55,0.625,0.7,0.75,0.8,0.87,1.,1.2,1.5,1.8,2.1,2.4,2.7,3.,3.3};
+	static const int NBinsPi0Momentum = 14; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.,0.1,0.2,0.3,0.38,0.45,0.5,0.55,0.625,0.7,0.75,0.8,0.87,1.,1.2};
 
 	static const int NBinsPi0InvMass = 15; static const double ArrayNBinsPi0InvMass[NBinsPi0InvMass+1] = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.1,1.2,1.3,1.4,1.5};
 
@@ -447,7 +437,7 @@ namespace constants {
 	static TString LabelXAxisTruekine_pio_flag = ";True kine pio flag";	
 	static const int NBinskine_pio_flag = 3;
 	static TString LabelXAxiskine_pio_flag2D = LabelXAxisTruekine_pio_flag+";Reco kine pio flag";
-	double min_kine_pio_flag = -.5, max_kine_pio_flag = 2.5;
+	double min_kine_pio_flag = -.5, max_kine_pio_flag = 2.5;	
 
 	// Blips
 
@@ -470,7 +460,7 @@ namespace constants {
 	int NBinsnBlips_saved = 16;
 	double nBlips_saved_min = -0.5, nBlips_saved_max = 15.5;
 
-	int radius = 20; // cm
+	int radius = 70; // cm, since neutron interaction length is 70 cm
 	TString LabelXAxisnBlips_radius = ";# blips within " + TString( to_string(radius) ) + "cm from vertex", LabelXAxisnBlips_radius2D = ";true # radius blips within " + TString( to_string(radius) ) + "cm from vertex"; 
 	int NBinsnBlips_radius = 8;
 	double nBlips_radius_min = -0.5, nBlips_radius_max = 7.5;

@@ -42,10 +42,10 @@ void generator_overlay(TString Tag = "") {
 	if (Tag == "") {
 
 	  Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  //Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_4_0_AR23_20i_00_000.root"); Labels.push_back("AR23"); Colors.push_back(kBlue); LineStyle.push_back(Gv2LineStyle);
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_4_0_1.root"); Labels.push_back("NEUT"); Colors.push_back(kMagenta); LineStyle.push_back(kSolid); // kMagenta - 9
-	  //Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_21_09_02.root"); Labels.push_back("NuWro"); Colors.push_back(NEUTColor); LineStyle.push_back(NuWroLineStyle);
-	  //Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2023.root"); Labels.push_back("GiBUU"); Colors.push_back(GiBUUColor); LineStyle.push_back(GiBUULineStyle);
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_6_0_AR23.root"); Labels.push_back("AR23"); Colors.push_back(kRed+1); LineStyle.push_back(kSolid);
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_6_0.root"); Labels.push_back("NEUT"); Colors.push_back(kGreen+1); LineStyle.push_back(kSolid); // kMagenta - 9
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_25_03_1.root"); Labels.push_back("NuWro"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
+	  Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2025.root"); Labels.push_back("GiBUU"); Colors.push_back(kAzure+7); LineStyle.push_back(kSolid);
 
 	}
 	
@@ -183,7 +183,7 @@ void generator_overlay(TString Tag = "") {
 		PlotCanvas->cd();
 		leg->Draw();
 
-		PlotCanvas->SaveAs("/exp/uboone/data/users/"+UserID+"/PeLEETuples_Atmospherics/FlatTTreePlots/"+Tag+CanvasName+".pdf");
+		PlotCanvas->SaveAs("/exp/uboone/data/users/"+UserID+"/ncpi0/myPlots/"+Tag+CanvasName+".pdf");
 		delete PlotCanvas;
 
 	} // End of the loop over the plots

@@ -121,8 +121,7 @@ void analyzer::Loop() {
 
 		double weight = fScaleFactor * Units * A * Weight * t2kweight;	
 
-		if (fOutputFile == "GiBUU_2023") { weight = weight/105.; } // To increase the stats, the GiBUU sample has been produced in 105 samples	
-		if (fOutputFile == "GiBUU_2023_medium") { weight = weight/150.; } // To increase the stats, the GiBUU sample has been produced in 73 samples	
+		if (fOutputFile == "GiBUU_2025") { weight = weight/1000.; } // To increase the stats, the GiBUU sample has been produced in 1000 samples	
 		if (fOutputFile == "ACHILLES") { weight = weight*1000./(40./12.); } // ACHILLES scaling still under discussion
 
 		//----------------------------------------//	
@@ -131,6 +130,8 @@ void analyzer::Loop() {
 
 		// make sure that we don't have a lepton in the final state
 		if ( PDGLep == 11 || PDGLep == 13 || PDGLep == 15) { continue; }
+		// make sure that we have only muon neutrinos
+		if (PDGnu != 14) { continue; }
 		// ACHILLES doesn't know how to handle the cc/nc branch yet
 		if (fOutputFile != "ACHILLES") {
 	    
@@ -151,7 +152,7 @@ void analyzer::Loop() {
 
 	  	for (int i = 0; i < nfsp; i++) {
 				
-			if (pdg[i] == ProtonPdg ) {
+			if (TMath::Abs(pdg[i]) == ProtonPdg ) {
 
 				double ke = E[i] - ProtonMass_GeV;
 
@@ -257,7 +258,7 @@ void analyzer::Loop() {
 	  } else {
 
 	    if (TMath::Abs(Mode) == 51 ||TMath::Abs(Mode) == 52) { genie_mode = 1; } // QE
-	    else if (TMath::Abs(Mode) == 2) { genie_mode = 2; } // MEC
+	    else if (TMath::Abs(Mode) == 2 || TMath::Abs(Mode) == 53) { genie_mode = 2; } // MEC
 	    else if ( TMath::Abs(Mode) == 31 || TMath::Abs(Mode) == 32 
 			   || TMath::Abs(Mode) == 33 || TMath::Abs(Mode) == 34 
 			   || TMath::Abs(Mode) == 38 || TMath::Abs(Mode) == 39 

@@ -44,7 +44,9 @@ void generator_inte_breakdown() {
 	std::vector<TString> Process{"","QE","MEC","RES","DIS","COH"};
 
 	Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18");
-	Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_4_0_1.root"); Labels.push_back("NEUT");	
+	Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_6_0.root"); Labels.push_back("NEUT");
+	Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_25_03_1.root"); Labels.push_back("NuWro");
+	Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2025.root"); Labels.push_back("GiBUU");			
 	
 	const int NSamples = Names.size();
 	const int NColors = Colors.size();
@@ -69,9 +71,8 @@ void generator_inte_breakdown() {
 	// 1D
 
 	PlotNames.push_back("TrueSingleBinPlot");
-	PlotNames.push_back("TruePi0CosThetaPlot");
+	//PlotNames.push_back("TruePi0CosThetaPlot");
 	PlotNames.push_back("TruePi0MomentumPlot");
-	PlotNames.push_back("TruePi0InvMassPlot");
 
 	//------------------------------//
 

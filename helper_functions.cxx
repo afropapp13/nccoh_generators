@@ -18,6 +18,79 @@ using namespace constants;
 
 //----------------------------------------//
 
+double back_proj_dist (TVector3 shower_v) {
+
+	double backwards_projected_dist = -99999.0;
+
+    double reco_shower_momentum_perp = shower_v.Pt();
+    double shower_theta = shower_v.Theta() * (180. / TMath::Pi());
+    double shower_phis = shower_v.Phi() * (180. / TMath::Pi());
+    double shower_momentum_total_3d = shower_v.Mag();
+	
+    std::vector<double> shower_unit_vector_3d = {shower_v.X() / shower_momentum_total_3d,
+                                 				 shower_v.Y() / shower_momentum_total_3d,
+                                 				 shower_v.Z() / shower_momentum_total_3d};
+    double center_x = 130.;
+    double center_y = 0.;
+    double center_z = 525.;
+        /*double towards_center_length = sqrt((pfeval.reco_showervtxX - center_x) * (pfeval.reco_showervtxX - center_x) +
+                                        (pfeval.reco_showervtxY - center_y) * (pfeval.reco_showervtxY - center_y) +
+                                        (pfeval.reco_showervtxZ - center_z) * (pfeval.reco_showervtxZ - center_z));
+        std::vector<double> towards_center_unit_vector_3d = {(center_x - pfeval.reco_showervtxX) / towards_center_length,
+                                         (center_y - pfeval.reco_showervtxY) / towards_center_length,
+                                         (center_z - pfeval.reco_showervtxZ) / towards_center_length};
+        double inwardness_3d = (shower_unit_vector_3d[0] * towards_center_unit_vector_3d[0]) +
+                             (shower_unit_vector_3d[1] * towards_center_unit_vector_3d[1]) +
+                             (shower_unit_vector_3d[2] * towards_center_unit_vector_3d[2]);
+
+        double shower_momentum_total_2d = sqrt(pfeval.reco_showerMomentum[0] * pfeval.reco_showerMomentum[0] +
+                                           pfeval.reco_showerMomentum[1] * pfeval.reco_showerMomentum[1]);
+        std::vector<double> shower_unit_vector_2d = {pfeval.reco_showerMomentum[0] / shower_momentum_total_3d,
+                                 pfeval.reco_showerMomentum[1] / shower_momentum_total_3d};
+        towards_center_length = sqrt((pfeval.reco_showervtxX - center_x) * (pfeval.reco_showervtxX - center_x) +
+                                        (pfeval.reco_showervtxY - center_y) * (pfeval.reco_showervtxY - center_y));
+        std::vector<double> towards_center_unit_vector_2d = {(center_x - pfeval.reco_showervtxX) / towards_center_length,
+                                         (center_y - pfeval.reco_showervtxY) / towards_center_length};
+        double inwardness_2d = (shower_unit_vector_2d[0] * towards_center_unit_vector_2d[0]) +
+                             (shower_unit_vector_2d[1] * towards_center_unit_vector_2d[1]);
+*/
+
+    double min_backwards_projected_dist = 1e9;
+/*
+        //projecting to x walls
+        if (shower_unit_vector_3d[0] > 0){
+            if ((pfeval.reco_showervtxX - (-1.0)) / shower_unit_vector_3d[0] < min_backwards_projected_dist)
+              min_backwards_projected_dist =  (pfeval.reco_showervtxX - (-1.0)) / shower_unit_vector_3d[0];
+        }else{
+          if ((pfeval.reco_showervtxX - (254.3)) / shower_unit_vector_3d[0] < min_backwards_projected_dist)
+            min_backwards_projected_dist = (pfeval.reco_showervtxX - (254.3)) / shower_unit_vector_3d[0];
+        }
+        //projecting to y walls
+        if (shower_unit_vector_3d[1] > 0){
+          if ((pfeval.reco_showervtxY - (-115.0)) / shower_unit_vector_3d[1] < min_backwards_projected_dist)
+            min_backwards_projected_dist = (pfeval.reco_showervtxY - (-115.)) / shower_unit_vector_3d[1];
+        }else{
+          if ((pfeval.reco_showervtxY - (117.0)) / shower_unit_vector_3d[1] < min_backwards_projected_dist)
+            min_backwards_projected_dist = (pfeval.reco_showervtxY - (117.)) / shower_unit_vector_3d[1];
+        }
+        //projecting to z walls
+        if (shower_unit_vector_3d[2] > 0){
+          if ((pfeval.reco_showervtxZ - (0.6)) / shower_unit_vector_3d[2] < min_backwards_projected_dist)
+            min_backwards_projected_dist = (pfeval.reco_showervtxZ - (0.6)) / shower_unit_vector_3d[2];
+        }else{
+          if ((pfeval.reco_showervtxZ - (1036.4)) / shower_unit_vector_3d[2] < min_backwards_projected_dist)
+            min_backwards_projected_dist = (pfeval.reco_showervtxZ - (1036.4)) / shower_unit_vector_3d[2];
+        }
+        if (isinf(min_backwards_projected_dist)) min_backwards_projected_dist = -99999.0;
+*/
+    backwards_projected_dist = min_backwards_projected_dist;
+
+	return backwards_projected_dist;
+
+}
+
+//----------------------------------------//
+
 double find_bin_max_value(TH1D* h){
 
 	int NBins = h->GetXaxis()->GetNbins();
