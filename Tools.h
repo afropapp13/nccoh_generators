@@ -24,7 +24,7 @@ class Tools {
 
 		// Default constructor
 		Tools(){ MuonMass = 106; ProtonMass = 938.272; MuonPdg = 13; ProtonPdg = 2212;
-			 FVx = 256.; FVy = 230; FVz = 1036.; borderx = 25.; bordery = 25.; borderz = 25.;}
+			 FVx = 256.; FVy = 232; FVz = 1037.; borderx = 25.; bordery = 25.; borderz = 25.;}
 
 		// Default destructor
 		~Tools(){}
@@ -35,6 +35,7 @@ class Tools {
 		bool IsContained(TVector3 TrackStart, TVector3 TrackEnd);
 		bool inFV(double x, double y, double z);
 		bool inFVVector(TVector3 vector);
+		bool loose_inFVVector(TVector3 vector);		
 		double PToKE(int pdg, double momentum);
 		double KEToP(int pdg, double ke);
 		TString to_string_with_precision(double a_value, const int n);

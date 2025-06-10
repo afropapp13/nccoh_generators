@@ -57,7 +57,8 @@ namespace constants {
 	double neutron_ke_thres = 0.02; //GeV
 	double proton_ke_thres = 0.02; //GeV
 	double pi0_costheta_thres = 0.85; //GeV	
-	double gamma_costheta_thres = 0.6; //GeV	
+	double gamma1_costheta_thres = 0.7; //GeV	
+	double gamma2_costheta_thres = 0.6; //GeV		
 	double TRACK_SCORE_CUT = 0.5;
 
 	// ------------------------------------ //
@@ -387,7 +388,7 @@ namespace constants {
 	// FV
 
 	double FVx = 256., FVy = 232., FVz = 1037.;
-	double borderx = 3., bordery = 3., borderz = 3.;
+	double borderx = 25., bordery = 25., borderz = 25.;
 
 	//----------------------------------------//		
 

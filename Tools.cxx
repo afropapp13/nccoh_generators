@@ -430,6 +430,19 @@ bool Tools::is_meson_or_antimeson( int pdg_code ) {
 
 //----------------------------------------//
 
+bool Tools::loose_inFVVector(TVector3 vector) {
+
+	double loose_borderx = 3; // cm
+	double loose_bordery = 3; // cm	
+	double loose_borderz = 10; // cm	
+
+	if(vector.X() < (FVx - loose_borderx) && (vector.X() > loose_borderx) && (vector.Y() < (FVy/2. - loose_bordery)) && (vector.Y() > (-FVy/2. + loose_bordery)) && 
+	(vector.Z() < (FVz - loose_borderz)) && (vector.Z() > loose_borderz)) return true;
+	else return false;
+}
+
+//----------------------------------------//
+
 bool Tools::inFVVector(TVector3 vector) {
 
 	if(vector.X() < (FVx - borderx) && (vector.X() > borderx) && (vector.Y() < (FVy/2. - bordery)) && (vector.Y() > (-FVy/2. + bordery)) && 
