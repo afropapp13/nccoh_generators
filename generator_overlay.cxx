@@ -1,8 +1,6 @@
 #include <TFile.h>
-#include <TTree.h>
 #include <TString.h>
 #include <TH1D.h>
-#include <TH2D.h>
 #include <TCanvas.h>
 #include <TStyle.h>
 #include <TLegend.h>
@@ -26,7 +24,6 @@ void generator_overlay(TString Tag = "") {
 	//------------------------------//
 
 	TH1D::SetDefaultSumw2();
-	TH2D::SetDefaultSumw2();
 	gStyle->SetOptStat(0);		
 
 	TString OutFilePath = "output_files/";
@@ -41,19 +38,17 @@ void generator_overlay(TString Tag = "") {
 
 	if (Tag == "") {
 
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_6_0_AR23.root"); Labels.push_back("AR23"); Colors.push_back(kRed+1); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_6_0.root"); Labels.push_back("NEUT"); Colors.push_back(kGreen+1); LineStyle.push_back(kSolid); // kMagenta - 9
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_25_03_1.root"); Labels.push_back("NuWro"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
-	  Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2025.root"); Labels.push_back("GiBUU"); Colors.push_back(kAzure+7); LineStyle.push_back(kSolid);
+		Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_0_6.root"); Labels.push_back("G18"); Colors.push_back(kBlack); LineStyle.push_back(kSolid);
+		Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_6_0_AR23.root"); Labels.push_back("AR23"); Colors.push_back(kRed+1); LineStyle.push_back(kSolid);
+		Names.push_back(OutFilePath+"analyzer_ncpi0_GENIE_v3_6_0_RS.root"); Labels.push_back("G18_RS"); Colors.push_back(kMagenta+1); LineStyle.push_back(kSolid);		
+		Names.push_back(OutFilePath+"analyzer_ncpi0_NEUT_5_6_0.root"); Labels.push_back("NEUT"); Colors.push_back(kGreen+1); LineStyle.push_back(kSolid); // kMagenta - 9
+		Names.push_back(OutFilePath+"analyzer_ncpi0_NuWro_25_03_1.root"); Labels.push_back("NuWro"); Colors.push_back(kOrange+7); LineStyle.push_back(kSolid);
+		Names.push_back(OutFilePath+"analyzer_ncpi0_GiBUU_2025.root"); Labels.push_back("GiBUU"); Colors.push_back(kAzure+7); LineStyle.push_back(kSolid);
 
 	}
 	
 	const int NSamples = Names.size();
 	const int NColors = Colors.size();
-
-	// Sanity check
-	if (NColors < NSamples) { cout << "Give me some more colors!" << endl; return; }
 
 	std::vector<TFile*> Files; Files.resize(NSamples);
 
@@ -62,29 +57,18 @@ void generator_overlay(TString Tag = "") {
 	// Plots to overlay
 
 	std::vector<TString> PlotNames;
-	std::vector<TString> YAxisLabel;
-
-	//------------------------------//
-
-	// Post FSI
 
 	// 1D
 
-	PlotNames.push_back("TruePi0CosThetaPlot"); YAxisLabel.push_back("#frac{d#sigma}{dcos#theta_{#pi^{0}}} #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-	PlotNames.push_back("TruePi0MomentumPlot"); YAxisLabel.push_back("#frac{d#sigma}{dp_{#pi^{0}}}  #left[10^{-38} #frac{cm^{2}}{(GeV/c) Ar}#right]");
-	PlotNames.push_back("TrueSingleBinPlot"); YAxisLabel.push_back("sigma #left[10^{-38} #frac{cm^{2}}{Ar}#right]");
-
-	//------------------------------//
-
+	PlotNames.push_back("TrueSingleBinPlot"); 
+	//PlotNames.push_back("TruePi0CosThetaPlot");
+	PlotNames.push_back("TruePi0MomentumPlot"); 
+	
 	const int NPlots = PlotNames.size();
-	const int NLabels = YAxisLabel.size();
-
-	// sanity check
-	if ( NPlots != NLabels) { cout << "Inconsistent number of plots and labels! Aborting !" << endl; return; }
 
 	//------------------------------//	
 
-	// Loop over the samples to open the files and the TTree
+	// Loop over the samples to open the files
 
 	for (int iSample = 0; iSample < NSamples; iSample++) {
 
@@ -98,20 +82,18 @@ void generator_overlay(TString Tag = "") {
 
 	for (int iPlot = 0; iPlot < NPlots; iPlot++) {
 
-		TString CanvasName = "ThreeDKI_GeneratorOverlay_" + PlotNames[iPlot];
+		TString CanvasName = "ncpi0_generator_overlay_" + PlotNames[iPlot];
 		TCanvas* PlotCanvas = new TCanvas(CanvasName,CanvasName,205,34,1024,768);
 		PlotCanvas->cd();
 		PlotCanvas->SetTopMargin(0.15);
-		PlotCanvas->SetLeftMargin(0.17);
-		PlotCanvas->SetRightMargin(0.05);
+		PlotCanvas->SetLeftMargin(0.19);
+		PlotCanvas->SetRightMargin(0.04);
 		PlotCanvas->SetBottomMargin(0.16);		
 		PlotCanvas->Draw();	
 
-		TLegend* leg = new TLegend(0.17,0.855,0.99,0.985);
-		if (Tag == "Honda" && PlotNames[iPlot] == "TrueFineBinEvPlot") { leg = new TLegend(0.75,0.7,0.9,0.8);  }
+		TLegend* leg = new TLegend(0.17,0.865,0.99,0.985);
 		leg->SetBorderSize(0);
-		leg->SetNColumns(6);
-		if (Tag == "Honda" && PlotNames[iPlot] == "TrueFineBinEvPlot") { leg->SetNColumns(1); }
+		leg->SetNColumns(3);
 		leg->SetTextSize(TextSize);	
 		leg->SetTextFont(FontStyle);						
 		leg->SetMargin(0.3);						
@@ -122,9 +104,7 @@ void generator_overlay(TString Tag = "") {
 
 		for (int iSample = 0; iSample < NSamples; iSample++) {	
 
-		        Histos[iSample] = (TH1D*)(Files[iSample]->Get(PlotNames[iPlot]));
-
-			//Histos[iSample]->Scale(Histos[0]->Integral() / Histos[iSample]->Integral());
+		    Histos[iSample] = (TH1D*)(Files[iSample]->Get(PlotNames[iPlot]));
 
 			Histos[iSample]->SetLineWidth(3);
 			Histos[iSample]->SetLineColor( Colors.at(iSample) );	
@@ -143,10 +123,11 @@ void generator_overlay(TString Tag = "") {
 			Histos[iSample]->GetYaxis()->SetLabelFont(FontStyle);
 			Histos[iSample]->GetYaxis()->SetNdivisions(6);
 			Histos[iSample]->GetYaxis()->SetLabelSize(TextSize);
-			Histos[iSample]->GetYaxis()->SetTitle(YAxisLabel.at(iPlot));
+			TString reduced_plot_name = PlotNames[iPlot];
+			reduced_plot_name.ReplaceAll("True","");
+			Histos[iSample]->GetYaxis()->SetTitle( VarLabel[reduced_plot_name] );
 			Histos[iSample]->GetYaxis()->SetTitleSize(TextSize);
 			Histos[iSample]->GetYaxis()->SetTitleOffset(1.2);
-			//Histos[iSample]->GetYaxis()->SetTickSize(0);
 			Histos[iSample]->GetYaxis()->CenterTitle();	
 
 			double imax = TMath::Max(Histos[iSample]->GetMaximum(),Histos[0]->GetMaximum());
@@ -156,25 +137,9 @@ void generator_overlay(TString Tag = "") {
 
 			PlotCanvas->cd();
 			Histos[iSample]->Draw("hist same");
-			//Histos[0]->Draw("hist same");	
 
 			TLegendEntry* legColor = leg->AddEntry(Histos[iSample],Labels[iSample],"l");
 			legColor->SetTextColor( Colors.at(iSample) ); 
-
-			TLatex *textSlice = new TLatex();
-			textSlice->SetTextFont(FontStyle);
-			textSlice->SetTextSize(TextSize);
-			TString PlotNameDuplicate = PlotNames[iPlot];
-			TString ReducedPlotName = PlotNameDuplicate.ReplaceAll("TrueFineBin","") ;
-			if (Tag == "Honda" && PlotNames[iPlot] == "TrueFineBinEvPlot") {
-
-				textSlice->DrawLatexNDC(0.3, 0.9, "Flux-averaged cross section");
-			
-			} else {
-
-				textSlice->DrawLatexNDC(0.2, 0.8, LatexLabel[ReducedPlotName].ReplaceAll("All events",""));
-
-			}
 
 			//----------------------------------------//					
 

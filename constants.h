@@ -28,7 +28,16 @@ namespace constants {
 	TString event_selection_file_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/output_files/";
 	TString plot_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/myPlots/"; 
 	TString efficiency_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/efficiencies/";
+	TString migration_matrices_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/migration_matrices/";	
+	TString xsec_path = "/exp/uboone/data/users/"+UserID+"/ncpi0/xsec/";	
+
+	//----------------------------------------//
 	
+	// Colors
+
+	int BeamOnColor = kBlack;
+	int OverlayColor = kAzure+7;
+
 	//----------------------------------------//
 
 	// constants
@@ -41,7 +50,7 @@ namespace constants {
 	const double TextSize = 0.07;
 	const int NCont = 999; 
 
-	double CosmicPID = -99.;
+	double CosmicPID = -99.;	
 	
 	//----------------------------------------//
 
@@ -64,6 +73,8 @@ namespace constants {
 	// ------------------------------------ //
 
 	vector<TString> xsec_Runs = {"Run4b_unified"};
+
+	TString CutExtension = "_nocuts";
 
 	// Run 1 
 
@@ -251,8 +262,8 @@ namespace constants {
 	static std::map<TString,std::pair<double,double> > XSecRange =
 	{
 
-		{ "SingleBinPlot",  std::make_pair(0, 16.9) },
-		{ "Pi0MomentumPlot",  std::make_pair(0, 34.) },			
+		{ "SingleBinPlot",  std::make_pair(0, 0.099) },
+		{ "Pi0MomentumPlot",  std::make_pair(0, 0.34) },			
 
 	};	
 	
@@ -289,11 +300,17 @@ namespace constants {
 	// Global Constants
 
 	static const double Units = 1E38; // so that the extracted cross-section is in 10^{-38} cm^{2}
+	static const double NTargets = 1.05E30; // Argon nuclei, not nucleons	
+
+	static double POTUncertainty = 0.02; // 2% POT Uncertainty		
+
+	static double NTargetUncertainty = 0.01; // 1% NTarget Uncertainty	
 	
 	static const int NuMuPdg = 14, MuonPdg = 13, ProtonPdg = 2212, AbsChargedPionPdg = 211, NeutralPionPdg = 111;
 	static const int ElectronPdg = 11, nue_pdg = 12, PhotonPdg = 22, NeutronPdg = 2112;
-	static const int  KaonPdg = 321, NeutralKaonPdg = 311, NeutralKaonLongPdg = 130, NeutralKaonShortPdg = 310;
-	static const int  d0_pdg = 38, dp_pdg = 39, dm_pdg = 40;
+	static const int KaonPdg = 321, NeutralKaonPdg = 311, NeutralKaonLongPdg = 130, NeutralKaonShortPdg = 310;
+	static const int xi_pdg = 3312, xi0_pdg = 3322;
+	static const int d0_pdg = 38, dp_pdg = 39, dm_pdg = 40;
 	static const int SigmaPlusPdg = 3222, SigmaMinusPdg = 3112, NeutralSigmaPdg = 3212, LambdaPdg = 3122, omega_pdg = 223;
 	static const int DeuteriumPdg = 1000010020, HeliumPdg = 1000020040, ArgonPdg = 1000180400;
 	static const int rho_pdg = 113, charged_rho_pdg = 213, eta_pdg = 221;	
@@ -347,11 +364,13 @@ namespace constants {
 
 	static const int NBinstwo_shower_angle = 18; static const double ArrayNBinstwo_shower_angle[NBinstwo_shower_angle+1] = {0.,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180};
 
+	static const int NBinstwo_shower_start_dist = 18; static const double ArrayNBinstwo_shower_start_dist[NBinstwo_shower_start_dist+1] = {0.,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360};	
+
 	//----------------------------------------//
 
 	// Labels for 1D plots
 	
-	static TString LabelXAxisSingleBin = ";single bin"; static TString LabelXAxisTrueSingleBin = ";true single bin";
+	static TString LabelXAxisSingleBin = ";"; static TString LabelXAxisTrueSingleBin = ";true";
 	static TString LabelXAxisPi0CosTheta = ";cos#theta_{#pi^{ 0}}"; static TString LabelXAxisTruePi0CosTheta = ";true cos#theta_{#pi^{ 0}}";
 	static TString LabelXAxisPi0Momentum = ";#pi^{ 0} momentum [GeV/c]"; static TString LabelXAxisTruePi0Momentum = ";true #pi^{0} momentum [GeV/c]";
 	static TString LabelXAxisPi0InvMass= ";#pi^{ 0} invariant mass [GeV/c^{2}]"; static TString LabelXAxisTruePi0InvMass = ";true #pi^{0} invariant mass [GeV/c^{2}]";
@@ -360,6 +379,7 @@ namespace constants {
 	static TString LabelXAxisg1Momentum = ";#gamma_{1} momentum [GeV/c]"; static TString LabelXAxisTrueg1Momentum = ";true #gamma_{1} momentum [GeV/c]";
 	static TString LabelXAxisg2Momentum = ";#gamma_{2} momentum [GeV/c]"; static TString LabelXAxisTrueg2Momentum = ";true #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle = ";two-shower angle [deg]"; static TString LabelXAxisTruetwo_shower_angle = ";true two-shower angle [deg]";
+	static TString LabelXAxistwo_shower_start_dist = ";two-shower start distance [cm]"; static TString LabelXAxisTruetwo_shower_start_dist = ";true two-shower start distance [cm]";	
 	
 	//----------------------------------------//
 
@@ -374,6 +394,7 @@ namespace constants {
 	static TString LabelXAxisg1Momentum2D = LabelXAxisTrueg1Momentum+";reco #gamma_{1} momentum [GeV/c]";
 	static TString LabelXAxisg2Momentum2D = LabelXAxisTrueg2Momentum+";reco #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle2D = LabelXAxisTruetwo_shower_angle+";reco two-shower angle [deg]";
+	static TString LabelXAxistwo_shower_start_dist2D = LabelXAxisTruetwo_shower_start_dist+";reco two-shower start distance [cm]";	
 
 	//----------------------------------------//
 	

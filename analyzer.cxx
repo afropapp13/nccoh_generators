@@ -7,7 +7,6 @@
 #include <TMath.h>
 #include <TVector3.h>
 #include <TLorentzVector.h>
-#include <TGraph.h>
 
 #include <iomanip>
 #include <sstream>
@@ -46,12 +45,9 @@ void analyzer::Loop() {
 
 	// Plot declaration
 
-	// Post FSI
-
 	TH1D* TrueSingleBinPlot[NInte];	
 	TH1D* TruePi0CosThetaPlot[NInte];
 	TH1D* TruePi0MomentumPlot[NInte];
-	TH1D* TruePi0InvMassPlot[NInte];
 
 	//----------------------------------------//
 
@@ -61,12 +57,9 @@ void analyzer::Loop() {
 
 		//--------------------------------------------------//
 
-		// Post FSI
-
 		TrueSingleBinPlot[inte] = new TH1D(InteractionLabels[inte]+"TrueSingleBinPlot", LabelXAxisSingleBin,NBinsSingleBin,ArrayNBinsSingleBin);	
 		TruePi0CosThetaPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0CosThetaPlot", LabelXAxisPi0CosTheta,NBinsPi0CosTheta,ArrayNBinsPi0CosTheta);
 		TruePi0MomentumPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0MomentumPlot", LabelXAxisPi0Momentum,NBinsPi0Momentum,ArrayNBinsPi0Momentum);
-		TruePi0InvMassPlot[inte] = new TH1D(InteractionLabels[inte]+"TruePi0InvMassPlot", LabelXAxisPi0InvMass,NBinsPi0InvMass,ArrayNBinsPi0InvMass);
 
 		//--------------------------------------------------//
 
@@ -77,21 +70,6 @@ void analyzer::Loop() {
 	// Counters
 
 	int CounterEventsPassedSelection = 0;
-
-	//----------------------------------------//
-
-	TFile* fweights_file = nullptr;
-	TTree* tweights = nullptr;
-	float cv_weight = -99.;
-
-	if (fweights == "Weights") {
-
-		if (fOutputFile == "GENIE_v3_0_6") { fweights_file = TFile::Open("/pnfs/uboone/persistent/users/apapadop/GENIETweakedSamples/myWeights_uB_Tune_Nominal.root"); }
-
-		tweights = (TTree*)fweights_file->Get("GenericVectors__VARS");
-		tweights->SetBranchAddress("Weight", &cv_weight);
-
-	}
 
 	//----------------------------------------//
 	
@@ -107,19 +85,9 @@ void analyzer::Loop() {
 		if (ientry < 0) break; nb = fChain->GetEntry(jentry); nbytes += nb;
 		if (jentry%100000 == 0) std::cout << jentry/1000 << " k " << std::setprecision(3) << double(jentry)/nentries*100. << " %"<< std::endl;
 
-		//----------------------------------------//	
-
-		double t2kweight = 1.;
-
-		if (fweights == "Weights") {
-
-			tweights->GetEntry(jentry); t2kweight = cv_weight;
-
-		}
-
 		//----------------------------------------//			
 
-		double weight = fScaleFactor * Units * A * Weight * t2kweight;	
+		double weight = fScaleFactor * Units * A * Weight;	
 
 		if (fOutputFile == "GiBUU_2025") { weight = weight/1000.; } // To increase the stats, the GiBUU sample has been produced in 1000 samples	
 		if (fOutputFile == "ACHILLES") { weight = weight*1000./(40./12.); } // ACHILLES scaling still under discussion
@@ -143,7 +111,7 @@ void analyzer::Loop() {
 		int ProtonTagging = 0, ChargedPionTagging = 0, Pi0Tagging = 0;
 		int heavy_meason_tagging = 0, SigmaTagging = 0, LambdaTagging = 0;
 		int PhotonTagging = 0, LeptonTagging = 0 , cluster_tagging = 0;
-		int neutron_tagging = 0;
+		int neutron_tagging = 0, xi_tagging = 0;
 		vector <int> Pi0ID; Pi0ID.clear();				
 
 		//----------------------------------------//	
@@ -156,7 +124,7 @@ void analyzer::Loop() {
 
 				double ke = E[i] - ProtonMass_GeV;
 
-				// proton kinetic energy threshold
+				// proton kinetic energy threshold (20 MeV)
 				if ( ke > proton_ke_thres ) {
 
 					ProtonTagging ++;
@@ -173,8 +141,8 @@ void analyzer::Loop() {
 
 			else if ( fabs(pdg[i]) == NeutralPionPdg)  {
 
-			Pi0Tagging ++;
-			Pi0ID.push_back(i);
+				Pi0Tagging ++;
+				Pi0ID.push_back(i);
 
 			}
 
@@ -182,13 +150,15 @@ void analyzer::Loop() {
 				   || fabs(pdg[i]) == NeutralKaonLongPdg || fabs(pdg[i]) == NeutralKaonShortPdg 
 			       || fabs(pdg[i]) == rho_pdg || fabs(pdg[i]) == charged_rho_pdg
 				   || fabs(pdg[i]) == d0_pdg || fabs(pdg[i]) == dp_pdg || fabs(pdg[i]) == dm_pdg 
-				   || fabs(pdg[i]) == eta_pdg || fabs(pdg[i]) == omega_pdg)  {
+				   || fabs(pdg[i]) == eta_pdg || fabs(pdg[i]) == omega_pdg 
+				   || fabs(pdg[i]) == xi_pdg || fabs(pdg[i]) == xi0_pdg)  {
 
 				heavy_meason_tagging ++;
 	
 			}	
 			
-			else if ( fabs(pdg[i]) == SigmaPlusPdg || fabs(pdg[i]) == SigmaMinusPdg || fabs(pdg[i]) == NeutralSigmaPdg)  {
+			else if ( fabs(pdg[i]) == SigmaPlusPdg || fabs(pdg[i]) == SigmaMinusPdg 
+			       || fabs(pdg[i]) == NeutralSigmaPdg )  {
 
 				SigmaTagging ++;
 	
@@ -267,35 +237,27 @@ void analyzer::Loop() {
 		   ) { genie_mode = 3; } // RES
 	    else if ( TMath::Abs(Mode) == 41 || TMath::Abs(Mode) == 46) { genie_mode = 4; } // DIS
 	    else if (TMath::Abs(Mode) == 36) { genie_mode = 5;} // COH
-	    else { cout << "new interaction " << Mode << endl;/*continue;*/ }  
+	    else { cout << "new interaction " << Mode << endl; }  
 
 	  }
 
 	  //----------------------------------------//	
 
-	  // If the signal definition post-FSI  is satisfied
+	  // If the signal definition is satisfied
 	  if ( Pi0Tagging == 1 && ProtonTagging == 0 && ChargedPionTagging == 0 && 
 		   heavy_meason_tagging == 0 && LambdaTagging == 0 && SigmaTagging == 0 &&
 		   PhotonTagging == 0 && LeptonTagging == 0 && cluster_tagging == 0 && neutron_tagging == 0
 		) { 
 
-	    CounterEventsPassedSelection++;
-
 	    // Kinematics of eutral pion in the final state
 
 	    TLorentzVector Pi04Vector(px[Pi0ID[0]], py[Pi0ID[0]], pz[Pi0ID[0]], E[Pi0ID[0]]);
-	    double Pi0InvMass = Pi04Vector.M();
-
-	    //----------------------------------------//
-
-	    // Variables of interest
-	    // Assign twice to keep track of the old values as well
-
 	    double Pi0Momentum = Pi04Vector.Rho();
 	    double Pi0CosTheta = Pi04Vector.CosTheta();
 
 		if (Pi0CosTheta < pi0_costheta_thres) { continue; }
-	  
+	    CounterEventsPassedSelection++;
+
 		//----------------------------------------//	
 
 	    // Underflow / overflow
@@ -310,7 +272,6 @@ void analyzer::Loop() {
 	    TrueSingleBinPlot[0]->Fill(0.5,weight);	
 	    TruePi0CosThetaPlot[0]->Fill(Pi0CosTheta,weight);
 	    TruePi0MomentumPlot[0]->Fill(Pi0Momentum,weight);	
-	    TruePi0InvMassPlot[0]->Fill(Pi0InvMass,weight);	
 
 	    //----------------------------------------//		
 
@@ -319,7 +280,6 @@ void analyzer::Loop() {
 	    TrueSingleBinPlot[genie_mode]->Fill(0.5,weight);	
 	    TruePi0CosThetaPlot[genie_mode]->Fill(Pi0CosTheta,weight);
 	    TruePi0MomentumPlot[genie_mode]->Fill(Pi0Momentum,weight);
-	    TruePi0InvMassPlot[genie_mode]->Fill(Pi0InvMass,weight);
 
 	  } // End of the post-FSI selection
 
