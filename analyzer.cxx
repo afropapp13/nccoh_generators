@@ -90,7 +90,6 @@ void analyzer::Loop() {
 		double weight = fScaleFactor * Units * A * Weight;	
 
 		if (fOutputFile == "GiBUU_2025") { weight = weight/1000.; } // To increase the stats, the GiBUU sample has been produced in 1000 samples	
-		if (fOutputFile == "ACHILLES") { weight = weight*1000./(40./12.); } // ACHILLES scaling still under discussion
 
 		//----------------------------------------//	
 
@@ -99,9 +98,8 @@ void analyzer::Loop() {
 		// make sure that we don't have a lepton in the final state
 		if ( PDGLep == 11 || PDGLep == 13 || PDGLep == 15) { continue; }
 		// make sure that we have only muon neutrinos
-		if (PDGnu != 14) { continue; }
-		// ACHILLES doesn't know how to handle the cc/nc branch yet
-		if (fOutputFile != "ACHILLES") {
+		//if (PDGnu != 14) { continue; }
+		if (fOutputFile != "achilles") {
 	    
 			// make sure that we have only NC interactions
 			if (cc != 0) { continue; }		
@@ -119,7 +117,7 @@ void analyzer::Loop() {
 		// Loop over the final state particles / post FSI
 
 	  	for (int i = 0; i < nfsp; i++) {
-				
+if (fOutputFile ==  "achilles" && Mode == 150) { cout << "pdg[i] = " << pdg[i] << endl; }				
 			if (TMath::Abs(pdg[i]) == ProtonPdg ) {
 
 				double ke = E[i] - ProtonMass_GeV;
@@ -220,10 +218,15 @@ void analyzer::Loop() {
 
 	  int genie_mode = -1.;
 
-	  if (fOutputFile ==  "ACHILLES") {
+	  if (fOutputFile ==  "achilles") {
 
 		// ACHILLES has limited interactions
-	    genie_mode = 1;
+	    if (Mode >= 200 && Mode <= 299) { genie_mode = 1; } // QE
+		else if (Mode >= 300 && Mode <= 399) { genie_mode = 2; } // MEC
+		else if (Mode >= 400 && Mode <= 499) { genie_mode = 3; } // RES
+		else if (Mode >= 500 && Mode <= 699) { genie_mode = 4; } // DIS
+		else if (Mode == 150) { genie_mode = 5; } // COH
+		else { cout << "new interaction " << Mode << endl; } // New interaction
 
 	  } else {
 
@@ -242,7 +245,11 @@ void analyzer::Loop() {
 	  }
 
 	  //----------------------------------------//	
+//if (fOutputFile ==  "achilles" && Mode == 150) { 
+	
+//	cout << "Pi0Tagging " << Pi0Tagging << "  ProtonTagging = " << ProtonTagging << " neutron_tagging = " << neutron_tagging << " PhotonTagging = " << PhotonTagging  << endl; 
 
+//}
 	  // If the signal definition is satisfied
 	  if ( Pi0Tagging == 1 && ProtonTagging == 0 && ChargedPionTagging == 0 && 
 		   heavy_meason_tagging == 0 && LambdaTagging == 0 && SigmaTagging == 0 &&

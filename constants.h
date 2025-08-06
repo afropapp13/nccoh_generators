@@ -263,6 +263,7 @@ namespace constants {
 	{
 
 		{ "SingleBinPlot",  std::make_pair(0, 0.099) },
+		//{ "SingleBinPlot",  std::make_pair(0, 0.159) },	
 		{ "Pi0MomentumPlot",  std::make_pair(0, 0.34) },			
 
 	};	
@@ -364,7 +365,9 @@ namespace constants {
 
 	static const int NBinstwo_shower_angle = 18; static const double ArrayNBinstwo_shower_angle[NBinstwo_shower_angle+1] = {0.,10,20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180};
 
-	static const int NBinstwo_shower_start_dist = 18; static const double ArrayNBinstwo_shower_start_dist[NBinstwo_shower_start_dist+1] = {0.,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360};	
+	static const int NBinstwo_shower_start_dist = 18; static const double ArrayNBinstwo_shower_start_dist[NBinstwo_shower_start_dist+1] = {0.,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360};
+	
+	static const int NBinsnshowers = 8; static const double ArrayNBinsnshowers[NBinsnshowers+1] = {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5};	
 
 	//----------------------------------------//
 
@@ -380,7 +383,8 @@ namespace constants {
 	static TString LabelXAxisg2Momentum = ";#gamma_{2} momentum [GeV/c]"; static TString LabelXAxisTrueg2Momentum = ";true #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle = ";two-shower angle [deg]"; static TString LabelXAxisTruetwo_shower_angle = ";true two-shower angle [deg]";
 	static TString LabelXAxistwo_shower_start_dist = ";two-shower start distance [cm]"; static TString LabelXAxisTruetwo_shower_start_dist = ";true two-shower start distance [cm]";	
-	
+	static TString LabelXAxisnshowers = ";#showers"; static TString LabelXAxisTruenshowers = ";true #showers";	
+
 	//----------------------------------------//
 
 	// Labels for 2D Plots
@@ -395,6 +399,7 @@ namespace constants {
 	static TString LabelXAxisg2Momentum2D = LabelXAxisTrueg2Momentum+";reco #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle2D = LabelXAxisTruetwo_shower_angle+";reco two-shower angle [deg]";
 	static TString LabelXAxistwo_shower_start_dist2D = LabelXAxisTruetwo_shower_start_dist+";reco two-shower start distance [cm]";	
+	static TString LabelXAxisnshowers2D = LabelXAxisTruenshowers+";reco #showers";
 
 	//----------------------------------------//
 	

@@ -46,7 +46,7 @@ void data_mc_overlay(bool PlotGENIE = true, bool PlotGen = false, bool plot_clos
 
 	vector<TString> PlotNames;
 	PlotNames.push_back("SingleBinPlot");
-	PlotNames.push_back("Pi0MomentumPlot");	
+	//PlotNames.push_back("Pi0MomentumPlot");	
 
 	const int N1DPlots = PlotNames.size();
 	cout << "Number of 1D Plots = " << N1DPlots << endl;
@@ -99,6 +99,9 @@ void data_mc_overlay(bool PlotGENIE = true, bool PlotGen = false, bool plot_clos
 			NameOfSamples.push_back("NuWro_25_03_1"); Colors.push_back(kOrange+7); Labels.push_back("NuWro "); LineStyle.push_back(kSolid); weighted.push_back("");
 			NameOfSamples.push_back("GiBUU_2025"); Colors.push_back(kMagenta+1); Labels.push_back("GiBUU "); LineStyle.push_back(kSolid); weighted.push_back(""); 
 			NameOfSamples.push_back("NEUT_5_6_0"); Colors.push_back(kYellow-6); Labels.push_back("NEUT "); LineStyle.push_back(kSolid); weighted.push_back("");
+			//NameOfSamples.push_back("NuWro_25_03_1_delta"); Colors.push_back(kBlue); Labels.push_back("NuWro Delta"); LineStyle.push_back(kSolid); weighted.push_back("");			
+			//NameOfSamples.push_back("NuWro_25_03_1_tweaked_coh"); Colors.push_back(kBlue); Labels.push_back("NuWro Tweaked"); LineStyle.push_back(kSolid); weighted.push_back("");
+			NameOfSamples.push_back("achilles"); Colors.push_back(kBlue); Labels.push_back("ACHILLES"); LineStyle.push_back(kSolid); weighted.push_back("");
 
 		}			
 
