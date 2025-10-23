@@ -66,8 +66,8 @@ namespace constants {
 	double neutron_ke_thres = 0.02; //GeV
 	double proton_ke_thres = 0.02; //GeV
 	double pi0_costheta_thres = 0.85; //GeV	
-	double gamma1_costheta_thres = 0.7; //GeV	
-	double gamma2_costheta_thres = 0.6; //GeV		
+	double gamma1_costheta_thres = 0.6; //GeV	
+	double gamma2_costheta_thres = 0.4; //GeV		
 	double TRACK_SCORE_CUT = 0.5;
 
 	// ------------------------------------ //
@@ -148,15 +148,27 @@ namespace constants {
 
 	// ------------------------------------ //	
 	
+	// Run 4a unified
+
+	static const double tor860_wcut_Run4a_unified = 0.;
+	static const double E1DCNT_wcut_Run4a_unified = 0.;
+	static const double EXT_Run4a_unified = 1.;
+
+	static const double Fulltor860_wcut_Run4a_unified = 4.5e19;
+	static const double FullE1DCNT_wcut_Run4a_unified = 9897624.;
+	static const double FullEXT_Run4a_unified = 27596585.;		
+
+	// ------------------------------------ //	
+	
 	// Run 4b 
 
 	static const double tor860_wcut_Run4b = 0.;
 	static const double E1DCNT_wcut_Run4b = 0.;
 	static const double EXT_Run4b = 1.;
 
-	static const double Fulltor860_wcut_Run4b = 1.36e20;
-	static const double FullE1DCNT_wcut_Run4b = 32305463.0;
-	static const double FullEXT_Run4b = 89244940.0;	
+	static const double Fulltor860_wcut_Run4b = 1.332e20;
+	static const double FullE1DCNT_wcut_Run4b = 31582916;
+	static const double FullEXT_Run4b = 88445969;	
 
 	// ------------------------------------ //	
 	
@@ -164,19 +176,12 @@ namespace constants {
 
 	static const double tor860_wcut_mcc9_10_Run4b_standalone = 0.;
 	static const double E1DCNT_wcut_mcc9_10_Run4b_standalone = 0.;
-	static const double EXT_mcc9_10_Run4b_standalone = 1.;
+	static const double EXT_mcc9_10_Run4b_standalone = 1.;	
 
-	// good run list applied
-	// produced by production team
-	//static const double Fulltor860_wcut_mcc9_10_Run4b_standalone = 3.92e+19;
-	//static const double FullE1DCNT_wcut_mcc9_10_Run4b_standalone = 9515547.0;
-	//static const double FullEXT_mcc9_10_Run4b_standalone = 27868945.0;	
-
-	//// good run list applied and rse matched
-	//// Afro filtered it so proceed with caution
-	static const double Fulltor860_wcut_mcc9_10_Run4b_standalone = 3.776e19;
-	static const double FullE1DCNT_wcut_mcc9_10_Run4b_standalone = 9176822.0;
-	static const double FullEXT_mcc9_10_Run4b_standalone = 27868945.0;		
+	// Aug 12 
+	static const double Fulltor860_wcut_mcc9_10_Run4b_standalone = 1.2e20;
+	static const double FullE1DCNT_wcut_mcc9_10_Run4b_standalone = 28396891;
+	static const double FullEXT_mcc9_10_Run4b_standalone = 46393391;	
 
 	// ------------------------------------ //	
 	
@@ -186,21 +191,10 @@ namespace constants {
 	static const double E1DCNT_wcut_mcc9_10_Run4b_unified = 0.;
 	static const double EXT_mcc9_10_Run4b_unified = 1.;
 
-	// CM Indiana
-	static const double Fulltor860_wcut_mcc9_10_Run4b_unified = 1.2e20;
-	static const double FullE1DCNT_wcut_mcc9_10_Run4b_unified = 28396891;
-	static const double FullEXT_mcc9_10_Run4b_unified = 46393391;
-
-	// //Erin filtered them and added her vars and good run list applied
-	// static const double Fulltor860_wcut_mcc9_10_Run4b_unified = 4.28e19;
-	// static const double FullE1DCNT_wcut_mcc9_10_Run4b_unified = 10398793.;
-	// static const double FullEXT_mcc9_10_Run4b_unified = 28964045.;	
-	
-	//// Afro rse's the WC processed files from Erin
-	//static const double Fulltor860_wcut_mcc9_10_Run4b_unified = 3.776e+19;
-	//static const double FullE1DCNT_wcut_mcc9_10_Run4b_unified = 9176822.0;
-	//static const double FullEXT_mcc9_10_Run4b_unified = 28964045.;	
-
+	// Aug 12
+	static const double Fulltor860_wcut_mcc9_10_Run4b_unified = 1.332e+20;
+	static const double FullE1DCNT_wcut_mcc9_10_Run4b_unified = 31582916.0;
+	static const double FullEXT_mcc9_10_Run4b_unified = 88445969.0;
 
 	// ------------------------------------ //
 		
@@ -215,6 +209,18 @@ namespace constants {
 	static const double FullEXT_Run4c = 47178301.0;	
 
 	// ------------------------------------ //
+		
+	// Run 4c unified
+
+	static const double tor860_wcut_Run4c_unified = 0.;
+	static const double E1DCNT_wcut_Run4c_unified = 0.;
+	static const double EXT_Run4c_unified = 1.;
+
+	static const double Fulltor860_wcut_Run4c_unified = 8.95e19;
+	static const double FullE1DCNT_wcut_Run4c_unified = 20273291.0;
+	static const double FullEXT_Run4c_unified = 47178301.0;		
+
+	// ------------------------------------ //
 
 	// Run 4d 
 
@@ -227,6 +233,18 @@ namespace constants {
 	static const double FullEXT_Run4d = 74409530.0;	
 
 	// ------------------------------------ //
+
+	// Run 4d unified
+
+	static const double tor860_wcut_Run4d_unified = 0.;
+	static const double E1DCNT_wcut_Run4d_unified = 0.;
+	static const double EXT_Run4d_unified = 1.;
+
+	static const double Fulltor860_wcut_Run4d_unified = 4.93e19;
+	static const double FullE1DCNT_wcut_Run4d_unified = 11192660.0;
+	static const double FullEXT_Run4d_unified = 74409530.0;		
+
+	// ------------------------------------ //
 		
 	// Run 5 
 
@@ -237,6 +255,18 @@ namespace constants {
 	static const double Fulltor860_wcut_Run5 = 1.48e20;
 	static const double FullE1DCNT_wcut_Run5 = 35265730.0;
 	static const double FullEXT_Run5 = 107466402.0;	
+
+	// ------------------------------------ //
+		
+	// Run 5 unified
+
+	static const double tor860_wcut_Run5_unified = 0.;
+	static const double E1DCNT_wcut_Run5_unified = 0.;
+	static const double EXT_Run5_unified = 1.;
+
+	static const double Fulltor860_wcut_Run5_unified = 1.48e20;
+	static const double FullE1DCNT_wcut_Run5_unified = 35265730.0;
+	static const double FullEXT_Run5_unified = 107466402.0;		
 
 	// ------------------------------------ //	
 	
@@ -349,7 +379,7 @@ namespace constants {
 	static const int NBinsPi0CosTheta = 18;
 	static const double ArrayNBinsPi0CosTheta[NBinsPi0CosTheta+1] = { -1.,-0.85,-0.7,-0.57,-0.45,-0.32,-0.2,-0.1,0.,0.1,0.2,0.3,0.4,0.5,0.6,0.72,0.84,0.95,1.};
 
-	static const int NBinsPi0Momentum = 14; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.,0.1,0.2,0.3,0.38,0.45,0.5,0.55,0.625,0.7,0.75,0.8,0.87,1.,1.2};
+	static const int NBinsPi0Momentum = 7; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8};
 
 	static const int NBinsPi0InvMass = 15; static const double ArrayNBinsPi0InvMass[NBinsPi0InvMass+1] = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.1,1.2,1.3,1.4,1.5};
 
@@ -367,7 +397,8 @@ namespace constants {
 
 	static const int NBinstwo_shower_start_dist = 18; static const double ArrayNBinstwo_shower_start_dist[NBinstwo_shower_start_dist+1] = {0.,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340,360};
 	
-	static const int NBinsnshowers = 8; static const double ArrayNBinsnshowers[NBinsnshowers+1] = {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5};	
+	static const int NBinsnshowers = 8; static const double ArrayNBinsnshowers[NBinsnshowers+1] = {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5};
+	static const int NBinspd_nshowers = 8; static const double ArrayNBinspd_nshowers[NBinspd_nshowers+1] = {-0.5,0.5,1.5,2.5,3.5,4.5,5.5,6.5,7.5};		
 
 	//----------------------------------------//
 
@@ -383,7 +414,8 @@ namespace constants {
 	static TString LabelXAxisg2Momentum = ";#gamma_{2} momentum [GeV/c]"; static TString LabelXAxisTrueg2Momentum = ";true #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle = ";two-shower angle [deg]"; static TString LabelXAxisTruetwo_shower_angle = ";true two-shower angle [deg]";
 	static TString LabelXAxistwo_shower_start_dist = ";two-shower start distance [cm]"; static TString LabelXAxisTruetwo_shower_start_dist = ";true two-shower start distance [cm]";	
-	static TString LabelXAxisnshowers = ";#showers"; static TString LabelXAxisTruenshowers = ";true #showers";	
+	static TString LabelXAxisnshowers = ";# wc showers"; static TString LabelXAxisTruenshowers = ";true # wc showers";
+	static TString LabelXAxispd_nshowers = ";# pd showers"; static TString LabelXAxisTruepd_nshowers = ";true # pd showers";		
 
 	//----------------------------------------//
 
@@ -399,7 +431,8 @@ namespace constants {
 	static TString LabelXAxisg2Momentum2D = LabelXAxisTrueg2Momentum+";reco #gamma_{2} momentum [GeV/c]";
 	static TString LabelXAxistwo_shower_angle2D = LabelXAxisTruetwo_shower_angle+";reco two-shower angle [deg]";
 	static TString LabelXAxistwo_shower_start_dist2D = LabelXAxisTruetwo_shower_start_dist+";reco two-shower start distance [cm]";	
-	static TString LabelXAxisnshowers2D = LabelXAxisTruenshowers+";reco #showers";
+	static TString LabelXAxisnshowers2D = LabelXAxisTruenshowers+";reco # wc showers";
+	static TString LabelXAxispd_nshowers2D = LabelXAxisTruepd_nshowers+";reco # pd showers";	
 
 	//----------------------------------------//
 	
@@ -414,9 +447,121 @@ namespace constants {
 	// FV
 
 	double FVx = 256., FVy = 232., FVz = 1037.;
-	double borderx = 25., bordery = 25., borderz = 25.;
+	double borderx = 10., bordery = 10., borderz = 10.;
+
+	//----------------------------------------//
+
+	// neutron counters
+
+	static TString LabelXAxisneutron_counter = ";# off-vertex objects"; 
+	static TString LabelXAxisTrueneutron_counter = ";true off-vertex objects";	
+	static const int NBinsneutron_counter = 6;
+	static TString LabelXAxisneutron_counter2D = LabelXAxisTrueneutron_counter+";reco off-vertex objects";
+	double min_neutron_counter = -0.5, max_neutron_counter = 5.5;
+
+	//----------------------------------------//
+
+	// gamma start / end points
+
+	// start g1
+
+	static TString LabelXAxisg1_start_x = ";#gamma_{1} start x [cm]"; 
+	static TString LabelXAxisTrueg1_start_x = ";True #gamma_{1} x [cm]";	
+	static const int NBinsg1_start_x = 20;
+	static TString LabelXAxisg1_start_x2D = LabelXAxisTrueg1_start_x+";Reco #gamma_{1} x [cm]";
+	double min_g1_start_x = 0., max_g1_start_x = FVx;
+
+	static TString LabelXAxisg1_start_y = ";#gamma_{1} start y [cm]"; 
+	static TString LabelXAxisTrueg1_start_y = ";True #gamma_{1} start y [cm]";	
+	static const int NBinsg1_start_y = 20;
+	static TString LabelXAxisg1_start_y2D = LabelXAxisTrueg1_start_y+";Reco #gamma_{1} start [cm]";
+	double min_g1_start_y = -FVy/2., max_g1_start_y = FVy/2.;
+	
+	static TString LabelXAxisg1_start_z = ";#gamma_{1} start z [cm]"; 
+	static TString LabelXAxisTrueg1_start_z = ";True #gamma_{1} z start [cm]";	
+	static const int NBinsg1_start_z = 20;
+	static TString LabelXAxisg1_start_z2D = LabelXAxisTrueg1_start_z+";Reco #gamma_{1} start z [cm]";
+	double min_g1_start_z = 0., max_g1_start_z = FVz;	
+
+	// end g1
+
+	static TString LabelXAxisg1_end_x = ";#gamma_{1} end x [cm]"; 
+	static TString LabelXAxisTrueg1_end_x = ";True #gamma_{1} end x [cm]";	
+	static const int NBinsg1_end_x = 20;
+	static TString LabelXAxisg1_end_x2D = LabelXAxisTrueg1_end_x+";Reco #gamma_{1} end x [cm]";
+	double min_g1_end_x = 0., max_g1_end_x = FVx;
+
+	static TString LabelXAxisg1_end_y = ";#gamma_{1} end y [cm]"; 
+	static TString LabelXAxisTrueg1_end_y = ";True #gamma_{1} end y [cm]";	
+	static const int NBinsg1_end_y = 20;
+	static TString LabelXAxisg1_end_y2D = LabelXAxisTrueg1_end_y+";Reco #gamma_{1} end y [cm]";
+	double min_g1_end_y = -FVy/2., max_g1_end_y = FVy/2.;
+	
+	static TString LabelXAxisg1_end_z = ";#gamma_{1} end z [cm]"; 
+	static TString LabelXAxisTrueg1_end_z = ";True #gamma_{1} end z [cm]";	
+	static const int NBinsg1_end_z = 20;
+	static TString LabelXAxisg1_end_z2D = LabelXAxisTrueg1_end_z+";Reco #gamma_{1} end z [cm]";
+	double min_g1_end_z = 0., max_g1_end_z = FVz;		
+
+	// start g2
+
+	static TString LabelXAxisg2_start_x = ";#gamma_{2} start x [cm]"; 
+	static TString LabelXAxisTrueg2_start_x = ";True #gamma_{2} start x [cm]";	
+	static const int NBinsg2_start_x = 20;
+	static TString LabelXAxisg2_start_x2D = LabelXAxisTrueg2_start_x+";Reco #gamma_{2} start x [cm]";
+	double min_g2_start_x = 0., max_g2_start_x = FVx;
+
+	static TString LabelXAxisg2_start_y = ";#gamma_{2} start y [cm]"; 
+	static TString LabelXAxisTrueg2_start_y = ";True #gamma_{2} start y [cm]";	
+	static const int NBinsg2_start_y = 20;
+	static TString LabelXAxisg2_start_y2D = LabelXAxisTrueg2_start_y+";Reco #gamma_{2} start y [cm]";
+	double min_g2_start_y = -FVy/2., max_g2_start_y = FVy/2.;
+	
+	static TString LabelXAxisg2_start_z = ";#gamma_{2} start z [cm]"; 
+	static TString LabelXAxisTrueg2_start_z = ";True #gamma_{2} start z [cm]";	
+	static const int NBinsg2_start_z = 20;
+	static TString LabelXAxisg2_start_z2D = LabelXAxisTrueg2_start_z+";Reco #gamma_{2} start z [cm]";
+	double min_g2_start_z = 0., max_g2_start_z = FVz;	
+	
+	// end g2
+
+	static TString LabelXAxisg2_end_x = ";#gamma_{2} end x [cm]"; 
+	static TString LabelXAxisTrueg2_end_x = ";True #gamma_{2} end x [cm]";	
+	static const int NBinsg2_end_x = 20;
+	static TString LabelXAxisg2_end_x2D = LabelXAxisTrueg2_end_x+";Reco #gamma_{2} end x [cm]";
+	double min_g2_end_x = 0., max_g2_end_x = FVx;
+
+	static TString LabelXAxisg2_end_y = ";#gamma_{2} end y [cm]"; 
+	static TString LabelXAxisTrueg2_end_y = ";True #gamma_{2} end y [cm]";	
+	static const int NBinsg2_end_y = 20;
+	static TString LabelXAxisg2_end_y2D = LabelXAxisTrueg2_end_y+";Reco #gamma_{2} end y [cm]";
+	double min_g2_end_y = -FVy/2., max_g2_end_y = FVy/2.;
+	
+	static TString LabelXAxisg2_end_z = ";#gamma_{2} end z [cm]"; 
+	static TString LabelXAxisTrueg2_end_z = ";True #gamma_{2} end z [cm]";	
+	static const int NBinsg2_end_z = 20;
+	static TString LabelXAxisg2_end_z2D = LabelXAxisTrueg2_end_z+";Reco #gamma_{2} end z [cm]";
+	double min_g2_end_z = 0., max_g2_end_z = FVz;		
 
 	//----------------------------------------//		
+
+	static TString LabelXAxisvertex_x = ";vertex x [cm]"; 
+	static TString LabelXAxisTruevertex_x = ";True vertex x [cm]";	
+	static const int NBinsvertex_x = 50;
+	static TString LabelXAxisvertex_x2D = LabelXAxisTruevertex_x+";Reco vertex x [cm]";
+	double min_vertex_x = 0., max_vertex_x = FVx;	
+
+	static TString LabelXAxisvertex_y = ";vertex y [cm]"; 
+	static TString LabelXAxisTruevertex_y = ";True vertex y [cm]";	
+	static const int NBinsvertex_y = 50;
+	static TString LabelXAxisvertex_y2D = LabelXAxisTruevertex_y+";Reco vertex y [cm]";
+	double min_vertex_y = -FVy/2., max_vertex_y = FVy/2.;
+
+	static TString LabelXAxisvertex_z = ";vertex z [cm]"; 
+	static TString LabelXAxisTruevertex_z = ";True vertex z [cm]";	
+	static const int NBinsvertex_z = 50;
+	static TString LabelXAxisvertex_z2D = LabelXAxisTruevertex_z+";Reco vertex z [cm]";
+	double min_vertex_z = 0., max_vertex_z = FVz;	
 
 	static TString LabelXAxiskine_pio_vtx_dis = ";pio-vertex distance [cm]"; 
 	static TString LabelXAxisTruekine_pio_vtx_dis = ";True pio-vertex distance [cm]";	

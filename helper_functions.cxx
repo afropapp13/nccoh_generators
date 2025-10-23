@@ -19,6 +19,77 @@ using namespace constants;
 
 //----------------------------------------//
 
+void normalize_rows(TH2D* hist) {
+
+    if (!hist) {
+        std::cerr << "Error: null histogram pointer.\n";
+        return;
+    }
+
+    int nBinsX = hist->GetNbinsX();
+    int nBinsY = hist->GetNbinsY();
+
+    // Loop over Y bins (rows)
+    for (int iy = 1; iy <= nBinsY; ++iy) {
+        double rowSum = 0.0;
+
+        // Sum over X bins
+        for (int ix = 1; ix <= nBinsX; ++ix) {
+            rowSum += hist->GetBinContent(ix, iy);
+        }
+
+        // Avoid division by zero
+        if (rowSum == 0) continue;
+
+        // Normalize this row
+        for (int ix = 1; ix <= nBinsX; ++ix) {
+            double content = hist->GetBinContent(ix, iy);
+            double error   = hist->GetBinError(ix, iy);
+
+            hist->SetBinContent(ix, iy, content / rowSum);
+            hist->SetBinError(ix, iy, error / rowSum);
+        }
+    }
+}
+
+
+//----------------------------------------//
+
+void normalize_columns(TH2D* hist) {
+
+    if (!hist) {
+        std::cerr << "Error: null histogram pointer.\n";
+        return;
+    }
+
+    int nBinsX = hist->GetNbinsX();
+    int nBinsY = hist->GetNbinsY();
+
+    // Loop over X bins (columns)
+    for (int ix = 1; ix <= nBinsX; ++ix) {
+        double colSum = 0.0;
+
+        // Sum over Y bins
+        for (int iy = 1; iy <= nBinsY; ++iy) {
+            colSum += hist->GetBinContent(ix, iy);
+        }
+
+        // Avoid division by zero
+        if (colSum == 0) continue;
+
+        // Normalize this column
+        for (int iy = 1; iy <= nBinsY; ++iy) {
+            double content = hist->GetBinContent(ix, iy);
+            double error   = hist->GetBinError(ix, iy);
+
+            hist->SetBinContent(ix, iy, content / colSum);
+            hist->SetBinError(ix, iy, error / colSum);
+        }
+    }
+}
+
+//----------------------------------------//
+
 void calc_chi2(TH1D* h_model, TH1D* h_data, TH2D* cov, double &chi, int &ndof, double &pval, double &sigma) {
 
 	// Clone them so we can scale them 
@@ -404,6 +475,32 @@ double PeLEE_ReturnBeamOnRunPOT(TString Run) {
 	return DataPOT;
 
 }
+
+//----------------------------------------//
+
+TString pot_sci_notation(TString run, int decimals = 2) {
+
+    double pot = PeLEE_ReturnBeamOnRunPOT(run);
+
+    if (pot <= 0) return "Invalid POT";
+
+    // Extract exponent
+    int exponent = (int)TMath::Floor(TMath::Log10(pot));
+
+    // Extract coefficient (mantissa)
+    double coefficient = pot / TMath::Power(10, exponent);
+
+    // Format coefficient with desired precision
+    TString coeffFormat = TString::Format("%%.%df", decimals);
+    TString coeffStr = TString::Format(coeffFormat, coefficient);
+
+    // Return LaTeX-formatted string: e.g., "6.60 \\times 10^{20}"
+    TString result = TString::Format("%s\\times 10^{%d}", coeffStr.Data(), exponent);
+
+    return result;
+	
+}
+
 //----------------------------------------//
 
 double get_median(const TH1D * h1) { 
@@ -415,6 +512,80 @@ double get_median(const TH1D * h1) {
 	// exclude underflow/overflows from bin content array y
 	return TMath::Median(n, &x[0], &y[1]); 
  
+}
+
+//----------------------------------------//
+
+double get_median_vector(std::vector<double> v) { 
+
+	size_t n = v.size();
+
+	if (n == 0) { return 0.; }
+
+	std::nth_element(v.begin(), v.begin() + n / 2, v.end());
+	return v[n / 2];
+
+}
+
+//----------------------------------------//
+
+double cos_alpha(const TVector3& vertex1, const TVector3& direction, const TVector3& vertex2) {
+
+    // Compute the vector from vertex1 to vertex2
+    TVector3 displacement = vertex2 - vertex1;
+
+    // Normalize the direction vector
+    TVector3 dirNorm = direction.Unit();
+
+    // Compute the cosine of the angle between the direction and displacement vectors
+    double costheta = dirNorm.Dot(displacement.Unit());
+
+    return costheta;
+
+}
+
+//----------------------------------------//
+
+//Backtracked proton-like blips 
+bool IsBackTrackedBlip( double d, double cosine_angle){
+ // angle w.r.t shower direction and L~24cm radiation/convertion length
+ // d < 70 & cosine_angle < -0.9975    , ~Cos(176°) & 3L 
+ // d < 48 & cosine_angle < -0.9900    , ~Cos(172°) & 2L
+ // d < 30 & cosine_angle < -0.9825    , ~Cos(169°) & 1L
+
+  return ( (d < 70 && cosine_angle < -0.9975 ) ||   (d < 48 && cosine_angle < -0.9900 ) || (d < 30 && cosine_angle < -0.9825  ) );
+
+}
+
+//----------------------------------------//
+
+// electron-like blips
+bool IsWithinSphereOutsideConic(const TVector3& vertex1, const TVector3& direction, const TVector3& vertex2, double R) {
+
+    // Compute the vector from vertex1 to vertex2
+    TVector3 displacement = vertex2 - vertex1;
+
+    // Compute the squared distance (more efficient than sqrt)
+    double distance = displacement.Mag();
+    double distanceSquared = displacement.Mag2();
+
+    // Check if within the sphere of radius R
+    if (distanceSquared > R * R) return false;
+
+    // Normalize the direction vector
+    TVector3 dirNorm = direction.Unit();
+
+    // Compute the cosine of the angle between the direction and displacement vectors
+    double cosTheta = dirNorm.Dot(displacement.Unit());
+
+    // The cosine of 45 degrees is sqrt(2)/2 ≈ 0.707
+    const double cos45 = std::cos(TMath::Pi() / 4);
+
+    if ( IsBackTrackedBlip(distance, cosTheta) ) { return 0; }
+
+    // Check if the point is inside the sphere but outside the conic region or proton-like backtracked region
+    return cosTheta < cos45;
+
 }
 
 //----------------------------------------//

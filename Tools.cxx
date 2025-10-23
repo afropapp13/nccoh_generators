@@ -452,6 +452,15 @@ bool Tools::inFVVector(TVector3 vector) {
 
 //----------------------------------------//
 
+bool Tools::inAV(double x, double y, double z) {
+
+	if( (x < FVx) && (x > 0.) && (y < (FVy/2.)) && (y > (-FVy/2.)) && (z < FVz) && (z > 0.)) return true;
+	else return false;
+
+}
+
+//----------------------------------------//
+
 bool Tools::inFV(double x, double y, double z) {
 
 	if(x < (FVx - borderx) && (x > borderx) && (y < (FVy/2. - bordery)) && (y > (-FVy/2. + bordery)) && (z < (FVz - borderz)) && (z > borderz)) return true;
