@@ -379,7 +379,7 @@ namespace constants {
 	static const int NBinsPi0CosTheta = 18;
 	static const double ArrayNBinsPi0CosTheta[NBinsPi0CosTheta+1] = { -1.,-0.85,-0.7,-0.57,-0.45,-0.32,-0.2,-0.1,0.,0.1,0.2,0.3,0.4,0.5,0.6,0.72,0.84,0.95,1.};
 
-	static const int NBinsPi0Momentum = 7; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8};
+	static const int NBinsPi0Momentum = 9; static const double ArrayNBinsPi0Momentum[NBinsPi0Momentum+1] = {0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,1.1};
 
 	static const int NBinsPi0InvMass = 15; static const double ArrayNBinsPi0InvMass[NBinsPi0InvMass+1] = {0.,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.,1.1,1.2,1.3,1.4,1.5};
 
